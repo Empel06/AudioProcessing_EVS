@@ -37,7 +37,7 @@
                             							
                             <targetPlatform binaryParser="com.xilinx.sdk.managedbuilder.XELF.arm.a53.x32" id="xilinx.armv7.target.gnu.base.debug.349181756" isAbstract="false" name="Debug Platform" superClass="xilinx.armv7.target.gnu.base.debug"/>
                             							
-                            <builder buildPath="${workspace_loc:/DTMF_app}/Debug" enableAutoBuild="true" id="xilinx.gnu.armv7.toolchain.builder.debug.637765939" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="GNU make" superClass="xilinx.gnu.armv7.toolchain.builder.debug"/>
+                            <builder buildPath="${workspace_loc:/DTMF_app}/Debug" enableAutoBuild="true" id="xilinx.gnu.armv7.toolchain.builder.debug.637765939" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="GNU make" parallelBuildOn="true" parallelizationNumber="optimal" superClass="xilinx.gnu.armv7.toolchain.builder.debug"/>
                             							
                             <tool id="xilinx.gnu.armv7.c.toolchain.assembler.debug.262601530" name="ARM v7 gcc assembler" superClass="xilinx.gnu.armv7.c.toolchain.assembler.debug">
                                 								
@@ -51,13 +51,35 @@
                                 								
                                 <option id="xilinx.gnu.compiler.option.debugging.level.554544729" name="Debug Level" superClass="xilinx.gnu.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
                                 								
-                                <option id="xilinx.gnu.compiler.inferred.swplatform.includes.1067859561" name="Software Platform Include Path" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" valueType="includePath">
+                                <option id="xilinx.gnu.compiler.inferred.swplatform.includes.1067859561" name="Software Platform Include Path" superClass="xilinx.gnu.compiler.inferred.swplatform.includes" useByScannerDiscovery="false" valueType="includePath"/>
+                                								
+                                <option id="xilinx.gnu.compiler.misc.other.1939846834" name="Other flags" superClass="xilinx.gnu.compiler.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -MT&quot;$@&quot; -mcpu=cortex-a9 -mfpu=neon-vfpv4 -mfloat-abi=hard" valueType="string"/>
+                                								
+                                <option id="xilinx.gnu.compiler.dircategory.includes.805396956" name="Include Paths" superClass="xilinx.gnu.compiler.dircategory.includes" useByScannerDiscovery="false" valueType="includePath">
                                     									
                                     <listOptionValue builtIn="false" value="${resolvePlatformFile:project=DTMF_app,fileType=bspInclude}"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/ComputeLibrary}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/Include}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/PrivateInclude}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/Include/dsp}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/Source}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/DTMF_app/src/ComputeLibrary/Include}&quot;"/>
                                     								
                                 </option>
                                 								
-                                <option id="xilinx.gnu.compiler.misc.other.1939846834" name="Other flags" superClass="xilinx.gnu.compiler.misc.other" value="-c -fmessage-length=0 -MT&quot;$@&quot; -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard" valueType="string"/>
+                                <option id="xilinx.gnu.compiler.symbols.defined.1624888632" name="Defined symbols (-D)" superClass="xilinx.gnu.compiler.symbols.defined" useByScannerDiscovery="false" valueType="definedSymbols">
+                                    									
+                                    <listOptionValue builtIn="false" value="DISABLEFLOAT16"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="ARM_MATH_NEON"/>
+                                    								
+                                </option>
                                 								
                                 <inputType id="xilinx.gnu.armv7.c.compiler.input.1623030074" name="C source files" superClass="xilinx.gnu.armv7.c.compiler.input"/>
                                 							
@@ -79,7 +101,7 @@
                             							
                             <tool id="xilinx.gnu.armv7.toolchain.archiver.1525847454" name="ARM v7 archiver" superClass="xilinx.gnu.armv7.toolchain.archiver"/>
                             							
-                            <tool id="xilinx.gnu.armv7.c.toolchain.linker.debug.1211591050" name="ARM v7 gcc linker" superClass="xilinx.gnu.armv7.c.toolchain.linker.debug">
+                            <tool commandLinePattern="@$(file &gt;linkcl.rsp,$(subst \,/,${FLAGS}) ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}) ${COMMAND} @linkcl.rsp" id="xilinx.gnu.armv7.c.toolchain.linker.debug.1211591050" name="ARM v7 gcc linker" superClass="xilinx.gnu.armv7.c.toolchain.linker.debug">
                                 								
                                 <option id="xilinx.gnu.linker.inferred.swplatform.lpath.490188352" name="Software Platform Library Path" superClass="xilinx.gnu.linker.inferred.swplatform.lpath" valueType="libPaths">
                                     									
@@ -95,9 +117,9 @@
                                 								
                                 <option id="xilinx.gnu.c.linker.option.lscript.152890088" name="Linker Script" superClass="xilinx.gnu.c.linker.option.lscript" value="../src/lscript.ld" valueType="string"/>
                                 								
-                                <option id="xilinx.gnu.c.link.option.ldflags.837388197" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" value=" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec" valueType="string"/>
+                                <option id="xilinx.gnu.c.link.option.ldflags.837388197" name="Linker Flags" superClass="xilinx.gnu.c.link.option.ldflags" useByScannerDiscovery="false" value=" -mcpu=cortex-a9 -mfpu=neon-vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec" valueType="string"/>
                                 								
-                                <option id="xilinx.gnu.c.link.option.libs.1466040712" superClass="xilinx.gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
+                                <option id="xilinx.gnu.c.link.option.libs.1466040712" name="Libraries (-l)" superClass="xilinx.gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
                                     									
                                     <listOptionValue builtIn="false" value="m"/>
                                     								
@@ -337,6 +359,22 @@
         	
     </storageModule>
     	
-    <storageModule moduleId="refreshScope"/>
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration configurationName="Debug">
+            			
+            <resource resourceType="PROJECT" workspacePath="/DTMF_app"/>
+            		
+        </configuration>
+        		
+        <configuration configurationName="Release">
+            			
+            <resource resourceType="PROJECT" workspacePath="/DTMF_app"/>
+            		
+        </configuration>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
     
 </cproject>

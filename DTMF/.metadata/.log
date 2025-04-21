@@ -10181,3 +10181,666 @@ Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.]. Thread: 
 
 !ENTRY com.xilinx.sdk.utils 1 0 2025-04-21 02:16:55.484
 !MESSAGE Tool usage for 'TCF_APP_DEBUG' updated to '3'
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:47.973
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:47.983
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:47.984
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:47.994
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-21 02:51:47.995
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:47.999
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:51:48.005
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdx.core 1 0 2025-04-21 02:51:49.494
+!MESSAGE Build step failed, canceling full build chain.
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.069
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.080
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.082
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.091
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-21 02:54:02.091
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.095
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 02:54:02.100
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-28: Build Project
+
+!ENTRY com.xilinx.sdx.core 1 0 2025-04-21 02:54:03.061
+!MESSAGE Build step failed, canceling full build chain.
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.939
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.949
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.949
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.968
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-21 03:01:30.969
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.972
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:01:30.977
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:09:48.790
+!MESSAGE XSCT Command: [disconnect tcfchan#3], Thread: Thread-371
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-21 03:09:48.807
+!MESSAGE XSCT command with result: [disconnect tcfchan#3], Result: [null, ]. Thread: Thread-371
+!SESSION 2025-04-22 00:47:06.587 -----------------------------------------------
+eclipse.buildId=2023.2
+java.version=11.0.16.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_GB
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.ui 4 4 2025-04-22 00:48:12.164
+!MESSAGE Plug-in 'org.eclipse.ui.editors' contributed an invalid Menu Extension (Path: 'navigate' is invalid): org.eclipse.ui.edit.text.gotoLastEditPosition
+
+!ENTRY org.eclipse.launchbar.core 2 0 2025-04-22 00:48:25.328
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2025-04-22 00:48:25.330
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2025-04-22 00:48:25.332
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:29.980
+!MESSAGE XSCT Command: [::hsi::utils::init_repo], Thread: Worker-6: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:29.981
+!MESSAGE XSCT Command: [plnx-install-path  ; ::scw::scw_mode gui], Thread: Thread-10
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:29.995
+!MESSAGE XSCT Command: [set sdk::sdk_chan tcfchan#0], Thread: Thread-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.387
+!MESSAGE XSCT command with result: [::hsi::utils::init_repo], Result: [null, ]. Thread: Worker-6: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.388
+!MESSAGE XSCT command with result: [plnx-install-path  ; ::scw::scw_mode gui], Result: [null, ]. Thread: Thread-10
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.389
+!MESSAGE XSCT Command: [set query_var1 $::env(RDI_DATADIR)], Thread: Worker-6: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.389
+!MESSAGE XSCT command with result: [set sdk::sdk_chan tcfchan#0], Result: [null, tcfchan#0]. Thread: Thread-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.391
+!MESSAGE XSCT Command: [setws C:/devWorks/DTMF/AudioProcessing_EVS/DTMF], Thread: Thread-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.392
+!MESSAGE XSCT command with result: [set query_var1 $::env(RDI_DATADIR)], Result: [null, C:/Xilinx/Vitis/2024.1/data]. Thread: Worker-6: Initializing s/w repositories
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:48:38.395
+!MESSAGE XSCT command with result: [setws C:/devWorks/DTMF/AudioProcessing_EVS/DTMF], Result: [null, ]. Thread: Thread-26
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:07.941
+!MESSAGE XSCT Command: [::hsi::utils::openhw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa], Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.394
+!MESSAGE XSCT command with result: [::hsi::utils::openhw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa], Result: [null, ]. Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.424
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.450
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.452
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.463
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-22 00:58:13.467
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.497
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 00:58:13.504
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-9: Build Project
+
+!ENTRY com.xilinx.sdx.core 1 0 2025-04-22 00:58:16.723
+!MESSAGE Build step failed, canceling full build chain.
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.298
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.305
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.306
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.313
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-22 01:06:13.324
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.326
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-10: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:06:13.330
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-10: Build Project
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:19:32.687
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:19:44.315
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:19:53.984
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:20:39.347
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:21:25.625
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.managedbuilder.core 4 0 2025-04-22 01:28:37.455
+!MESSAGE Unexpected error: Warning more than one options found for kind 1
+!STACK 0
+java.lang.Exception
+	at org.eclipse.cdt.managedbuilder.core.ManagedBuilderCorePlugin.error(ManagedBuilderCorePlugin.java:226)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.setUserEntries(BuildEntryStorage.java:667)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildEntryStorage.obtainEntriesFromLevel(BuildEntryStorage.java:151)
+	at org.eclipse.cdt.core.settings.model.util.AbstractEntryStorage.setEntries(AbstractEntryStorage.java:63)
+	at org.eclipse.cdt.managedbuilder.internal.dataprovider.BuildLanguageData.setEntries(BuildLanguageData.java:103)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:336)
+	at org.eclipse.cdt.internal.core.settings.model.CLanguageSetting.setSettingEntries(CLanguageSetting.java:325)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.setSettingEntries(AbstractLangsListTab.java:855)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.changeIt(AbstractLangsListTab.java:508)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.performAdd(AbstractLangsListTab.java:487)
+	at org.eclipse.cdt.ui.newui.AbstractLangsListTab.buttonPressed(AbstractLangsListTab.java:594)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.buttonPressed(AbstractCPropertyTab.java:273)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab.access$0(AbstractCPropertyTab.java:270)
+	at org.eclipse.cdt.ui.newui.AbstractCPropertyTab$1.widgetSelected(AbstractCPropertyTab.java:220)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.xilinx.ide.tools.build.BuildSettingsHandler.execute(BuildSettingsHandler.java:40)
+	at org.eclipse.ui.internal.handlers.HandlerProxy.execute(HandlerProxy.java:283)
+	at org.eclipse.ui.internal.handlers.E4HandlerProxy.execute(E4HandlerProxy.java:97)
+	at jdk.internal.reflect.GeneratedMethodAccessor58.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:318)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:252)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceHandler.execute(HandlerServiceHandler.java:156)
+	at org.eclipse.core.commands.Command.executeWithChecks(Command.java:488)
+	at org.eclipse.core.commands.ParameterizedCommand.executeWithChecks(ParameterizedCommand.java:487)
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.executeHandler(HandlerServiceImpl.java:213)
+	at org.eclipse.e4.ui.workbench.renderers.swt.HandledContributionItem.executeItem(HandledContributionItem.java:438)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.handleWidgetSelection(AbstractContributionItem.java:449)
+	at org.eclipse.e4.ui.workbench.renderers.swt.AbstractContributionItem.lambda$2(AbstractContributionItem.java:475)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4105)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1037)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3922)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3524)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:658)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:154)
+	at com.xilinx.ide.application.ui.Application.start(Application.java:80)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-04-22 01:28:59.207
+!MESSAGE Indexed 'DTMF_app' (644 sources, 144 headers) in 13.4 sec: 16,178 declarations; 184,175 references; 1 unresolved inclusions; 66 syntax errors; 2,741 unresolved names (1.3%)
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.658
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.673
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.674
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.680
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-22 01:30:54.681
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.683
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:30:54.687
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-22: Build Project
+
+!ENTRY com.xilinx.sdx.core 1 0 2025-04-22 01:33:24.176
+!MESSAGE Build step failed, canceling full build chain.
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.859
+!MESSAGE XSCT Command: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.879
+!MESSAGE XSCT command with result: [ ::hsi::utils::set_current_hw_sw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss ], Result: [null, ]. Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.880
+!MESSAGE XSCT Command: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.886
+!MESSAGE XSCT command with result: [::hsi::utils::get_hw_sw_details -json C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, {"procname": "ps7_cortexa9_0",
+"osname": "standalone",
+"osver": "9.1",
+}]. Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 1 0 2025-04-22 01:34:23.887
+!MESSAGE Generating MD5 hash for file: C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\AudioProcessing2\export\AudioProcessing2\sw\AudioProcessing2\standalone_ps7_cortexa9_0\system.mss ...
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.889
+!MESSAGE XSCT Command: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Thread: Worker-24: Build Project
+
+!ENTRY com.xilinx.sdk.utils 0 0 2025-04-22 01:34:23.905
+!MESSAGE XSCT command with result: [::hsi::utils::closesw C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/system.mss], Result: [null, ]. Thread: Worker-24: Build Project
