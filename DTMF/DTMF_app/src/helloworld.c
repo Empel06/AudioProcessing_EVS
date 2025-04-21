@@ -1,87 +1,89 @@
-
 #include "audio.h"
 #include "xscutimer.h"
 #include "xscugic.h"
 #include "math.h"
-#define TIMER_DEVICE_ID		XPAR_XSCUTIMER_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define TIMER_IRPT_INTR		XPAR_SCUTIMER_INTR
-#define TIMER_LOAD_VALUE	0xFFFF
+
+#define TIMER_DEVICE_ID     XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID      XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR     XPAR_SCUTIMER_INTR
+#define SAMPLE_RATE         48000
+#define PI                  3.14159265358979f
+#define MAX_AMPLITUDE       0x7FFFFF
 
 volatile int Timer_Intr_rcvd;
 
-// Timer Interrupt Service Routine (ISR) for audio processing
-static void Timer_ISR(void *CallBackRef) {
-    // Cast CallBackRef to an XScuTimer pointer for further use
-    XScuTimer *timerInstancePtr = (XScuTimer *)CallBackRef;
+// Frequencies for DTMF tones
+const float freq1 = 770.0f;   // Lage toon (bv. voor '5')
+const float freq2 = 1336.0f;  // Hoge toon (bv. voor '5')
 
-    // Clear the interrupt status to acknowledge it's been handled
+// Internal phase accumulators
+static float phase1 = 0.0f;
+static float phase2 = 0.0f;
+
+// Timer ISR for DTMF generation
+static void Timer_ISR(void *CallBackRef) {
+    XScuTimer *timerInstancePtr = (XScuTimer *)CallBackRef;
     XScuTimer_ClearInterruptStatus(timerInstancePtr);
 
-    uint32_t dataL, dataR = 0;
+    float step1 = 2.0f * PI * freq1 / SAMPLE_RATE;
+    float step2 = 2.0f * PI * freq2 / SAMPLE_RATE;
 
-    const int loop_size = 8;
-    uint32_t sine_table[] = {0, 7071, 10000, 7071, 0, -7071, -10000, -7071};
+    phase1 += step1;
+    phase2 += step2;
 
-    static int sine_ptr = 0;
-    dataL = 100*sine_table[sine_ptr];
-    dataR = 100*sine_table[sine_ptr];
-    sine_ptr = (sine_ptr + 1) % loop_size;
+    if (phase1 > 2.0f * PI) phase1 -= 2.0f * PI;
+    if (phase2 > 2.0f * PI) phase2 -= 2.0f * PI;
 
-    Xil_Out32(I2S_DATA_TX_L_REG, dataL);
-    Xil_Out32(I2S_DATA_TX_R_REG, dataR);
+    float sample = 0.5f * (sinf(phase1) + sinf(phase2));
+
+    uint32_t scaled_sample = (uint32_t)(((sample + 1.0f) / 2.0f) * MAX_AMPLITUDE);
+
+    Xil_Out32(I2S_DATA_TX_L_REG, scaled_sample);
+    Xil_Out32(I2S_DATA_TX_R_REG, scaled_sample);
 }
 
-static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId)
-{
-	int Status;
-	XScuGic_Config *IntcConfig;
-	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
-	// Step 1: Interrupt Setup
-	Xil_ExceptionInit();
-	// Step 2: Interrupt Setup
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler,IntcInstancePtr);
-	// Step 3: Interrupt Setup
-	Status = XScuGic_Connect(IntcInstancePtr, TimerIntrId, (Xil_ExceptionHandler)Timer_ISR, (void *)TimerInstancePtr);
-	// Step 4: Interrupt Setup
-	XScuGic_Enable(IntcInstancePtr, TimerIntrId);
-	// Step 5:
-	XScuTimer_EnableInterrupt(TimerInstancePtr);
-	// Step 6: Interrupt Setup
-	Xil_ExceptionEnable();
-	return XST_SUCCESS;
+static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId) {
+    int Status;
+    XScuGic_Config *IntcConfig;
+    IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, IntcInstancePtr);
+    Status = XScuGic_Connect(IntcInstancePtr, TimerIntrId, (Xil_ExceptionHandler)Timer_ISR, (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+    return XST_SUCCESS;
 }
 
-int main()
-{
-	int Status;
+int main() {
+    int Status;
     init_platform();
-	IicConfig(XPAR_XIICPS_0_DEVICE_ID);
+    IicConfig(XPAR_XIICPS_0_DEVICE_ID);
+    AudioPllConfig();
+    AudioConfigureJacks();
+    LineinLineoutConfig();
 
-	AudioPllConfig();
+    print("DTMF Generator Demo\n\r");
+    print("-------------------\n\r");
 
-	AudioConfigureJacks();
-	LineinLineoutConfig();
+    XScuTimer Scu_Timer;
+    XScuTimer_Config *Scu_ConfigPtr;
+    XScuGic IntcInstance;
 
-  print("Interrupt Audio Demo by www.cteq.eu\n\r" );
-  print("=========================\n\r");
+    Scu_ConfigPtr = XScuTimer_LookupConfig(XPAR_PS7_SCUTIMER_0_DEVICE_ID);
+    Status = XScuTimer_CfgInitialize(&Scu_Timer, Scu_ConfigPtr, Scu_ConfigPtr->BaseAddr);
+    Status = Timer_Intr_Setup(&IntcInstance, &Scu_Timer, XPS_SCU_TMR_INT_ID);
 
-  XScuTimer Scu_Timer;
-  XScuTimer_Config *Scu_ConfigPtr;
-  XScuGic IntcInstance;
+    XScuTimer_LoadTimer(&Scu_Timer, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / SAMPLE_RATE);
+    XScuTimer_EnableAutoReload(&Scu_Timer);
+    XScuTimer_Start(&Scu_Timer);
 
-  Scu_ConfigPtr = XScuTimer_LookupConfig(XPAR_PS7_SCUTIMER_0_DEVICE_ID);
-  Status = XScuTimer_CfgInitialize(&Scu_Timer, Scu_ConfigPtr, Scu_ConfigPtr->BaseAddr);
-  Status = Timer_Intr_Setup(&IntcInstance, &Scu_Timer, XPS_SCU_TMR_INT_ID);
-  // 48kHz sample frequency
-  XScuTimer_LoadTimer(&Scu_Timer,(XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2)/48000);
+    while (1) {
+    }
 
-  XScuTimer_EnableAutoReload(&Scu_Timer);
-  XScuTimer_Start(&Scu_Timer);
-
-  for(;;){
-  }
-  cleanup_platform();
-  return 0;
+    cleanup_platform();
+    return 0;
 }

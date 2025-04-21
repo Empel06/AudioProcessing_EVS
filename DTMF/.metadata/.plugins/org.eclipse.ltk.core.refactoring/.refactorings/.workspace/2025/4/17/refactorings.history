@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;DTMF_app/src/arm_math.h&apos;" deleteContents="false" description="Delete resource &apos;DTMF_app/src/arm_math.h&apos;" element1="/DTMF_app/src/arm_math.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1745194353492"/>
+</session>
