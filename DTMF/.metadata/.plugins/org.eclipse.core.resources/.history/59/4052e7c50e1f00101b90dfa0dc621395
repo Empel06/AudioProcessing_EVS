@@ -15,9 +15,11 @@
 #define PI                  3.14159265358979f
 #define MAX_AMPLITUDE       0x7FFFFF
 
+// UART
 #define UART_DEVICE_ID      XPAR_XUARTPS_0_DEVICE_ID
 XUartPs Uart_Ps;
 
+// DTMF frequenties
 typedef struct {
     char key;
     float f1;
@@ -37,6 +39,7 @@ float freq2 = 0.0f;
 float phase1 = 0.0f;
 float phase2 = 0.0f;
 
+// Timer ISR: genereert audio
 static void Timer_ISR(void *CallBackRef) {
     XScuTimer *timerInstancePtr = (XScuTimer *)CallBackRef;
     XScuTimer_ClearInterruptStatus(timerInstancePtr);
@@ -57,6 +60,7 @@ static void Timer_ISR(void *CallBackRef) {
     Xil_Out32(I2S_DATA_TX_R_REG, scaled_sample);
 }
 
+// Timer + interrupt setup
 static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId) {
     int Status;
     XScuGic_Config *IntcConfig;
@@ -81,7 +85,7 @@ static void Init_UART() {
 }
 
 void process_received_char(char c) {
-    if (c == '\n' || c == '\r') return;
+    if (c == '\n' || c == '\r') return;  // filter enter/newline
 
     if (c == 'x') {
         freq1 = 0.0f;
@@ -111,7 +115,7 @@ int main() {
     LineinLineoutConfig();
     Init_UART();
 
-    xil_printf("DTMF Sender DEMO actief. Wacht op toets via UART amk...\n\r");
+    xil_printf("DTMF Sender actief. Wacht op toets via UART...\n\r");
 
     XScuTimer Scu_Timer;
     XScuTimer_Config *Scu_ConfigPtr;
@@ -125,6 +129,7 @@ int main() {
     XScuTimer_EnableAutoReload(&Scu_Timer);
     XScuTimer_Start(&Scu_Timer);
 
+    // Wacht op UART input
     while (1) {
         u8 RecvChar;
         if (XUartPs_Recv(&Uart_Ps, &RecvChar, 1) == 1) {

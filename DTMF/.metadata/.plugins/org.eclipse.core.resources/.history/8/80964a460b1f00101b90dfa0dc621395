@@ -1,11 +1,6 @@
-#include <stdio.h>
-#include "platform.h"
-#include "xil_printf.h"
+#include "audio.h"
 #include "xscutimer.h"
 #include "xscugic.h"
-#include "xuartps.h"
-#include "audio.h"
-#include "arm_math.h"
 #include "math.h"
 
 #define TIMER_DEVICE_ID     XPAR_XSCUTIMER_0_DEVICE_ID
@@ -15,28 +10,17 @@
 #define PI                  3.14159265358979f
 #define MAX_AMPLITUDE       0x7FFFFF
 
-#define UART_DEVICE_ID      XPAR_XUARTPS_0_DEVICE_ID
-XUartPs Uart_Ps;
+volatile int Timer_Intr_rcvd;
 
-typedef struct {
-    char key;
-    float f1;
-    float f2;
-} DTMF_Tone;
+// Frequencies for DTMF tones
+const float freq1 = 770.0f;   // Lage toon (bv. voor '5')
+const float freq2 = 1336.0f;  // Hoge toon (bv. voor '5')
 
-DTMF_Tone dtmf_tones[] = {
-    {'1', 697.0f, 1209.0f}, {'2', 697.0f, 1336.0f}, {'3', 697.0f, 1477.0f},
-    {'4', 770.0f, 1209.0f}, {'5', 770.0f, 1336.0f}, {'6', 770.0f, 1477.0f},
-    {'7', 852.0f, 1209.0f}, {'8', 852.0f, 1336.0f}, {'9', 852.0f, 1477.0f},
-    {'*', 941.0f, 1209.0f}, {'0', 941.0f, 1336.0f}, {'#', 941.0f, 1477.0f}
-};
+// Internal phase accumulators
+static float phase1 = 0.0f;
+static float phase2 = 0.0f;
 
-// Globale toonparameters
-float freq1 = 0.0f;
-float freq2 = 0.0f;
-float phase1 = 0.0f;
-float phase2 = 0.0f;
-
+// Timer ISR for DTMF generation
 static void Timer_ISR(void *CallBackRef) {
     XScuTimer *timerInstancePtr = (XScuTimer *)CallBackRef;
     XScuTimer_ClearInterruptStatus(timerInstancePtr);
@@ -50,7 +34,8 @@ static void Timer_ISR(void *CallBackRef) {
     if (phase1 > 2.0f * PI) phase1 -= 2.0f * PI;
     if (phase2 > 2.0f * PI) phase2 -= 2.0f * PI;
 
-    float sample = 0.5f * (arm_sin_f32(phase1) + arm_sin_f32(phase2));
+    float sample = 0.5f * (sinf(phase1) + sinf(phase2));
+
     uint32_t scaled_sample = (uint32_t)(((sample + 1.0f) / 2.0f) * MAX_AMPLITUDE);
 
     Xil_Out32(I2S_DATA_TX_L_REG, scaled_sample);
@@ -73,35 +58,6 @@ static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstanceP
     return XST_SUCCESS;
 }
 
-// UART setup
-static void Init_UART() {
-    XUartPs_Config *Config = XUartPs_LookupConfig(UART_DEVICE_ID);
-    XUartPs_CfgInitialize(&Uart_Ps, Config, Config->BaseAddress);
-    XUartPs_SetBaudRate(&Uart_Ps, 115200);
-}
-
-void process_received_char(char c) {
-    if (c == '\n' || c == '\r') return;
-
-    if (c == 'x') {
-        freq1 = 0.0f;
-        freq2 = 0.0f;
-        xil_printf("Toon gedempt.\n\r");
-        return;
-    }
-
-    for (int i = 0; i < sizeof(dtmf_tones)/sizeof(DTMF_Tone); i++) {
-        if (dtmf_tones[i].key == c) {
-            freq1 = dtmf_tones[i].f1;
-            freq2 = dtmf_tones[i].f2;
-            xil_printf("Invoer: %c -> Frequencies: %d Hz & %d Hz\n\r", c, (int)freq1, (int)freq2);
-            return;
-        }
-    }
-
-    xil_printf("Ongeldige toets: %c\n\r", c);
-}
-
 int main() {
     int Status;
     init_platform();
@@ -109,9 +65,9 @@ int main() {
     AudioPllConfig();
     AudioConfigureJacks();
     LineinLineoutConfig();
-    Init_UART();
 
-    xil_printf("DTMF Sender DEMO actief. Wacht op toets via UART amk...\n\r");
+    print("DTMF Generator Demo\n\r");
+    print("-------------------\n\r");
 
     XScuTimer Scu_Timer;
     XScuTimer_Config *Scu_ConfigPtr;
@@ -126,10 +82,6 @@ int main() {
     XScuTimer_Start(&Scu_Timer);
 
     while (1) {
-        u8 RecvChar;
-        if (XUartPs_Recv(&Uart_Ps, &RecvChar, 1) == 1) {
-            process_received_char((char)RecvChar);
-        }
     }
 
     cleanup_platform();
