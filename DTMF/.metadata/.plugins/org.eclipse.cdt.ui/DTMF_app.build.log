@@ -1,52 +1,10 @@
-03:06:43 **** Incremental Build of configuration Debug for project DTMF_app ****
+09:53:21 **** Incremental Build of configuration Debug for project DTMF_app ****
 make -j12 all 
 make --no-print-directory pre-build
 a9-linaro-pre-build-step
 ' '
 make --no-print-directory main-build
-'Building file: ../src/helloworld.c'
-'Invoking: ARM v7 gcc compiler'
-arm-none-eabi-gcc -DDISABLEFLOAT16 -DARM_MATH_NEON -Wall -O0 -g3 -IC:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/bspinclude/include -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\ComputeLibrary" -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\Include" -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\PrivateInclude" -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\Include\dsp" -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\Source" -I"C:\devWorks\DTMF\AudioProcessing_EVS\DTMF\DTMF_app\src\ComputeLibrary\Include" -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=neon-vfpv4 -mfloat-abi=hard -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
-In file included from ../src/helloworld.c:6:
-C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps.h:450: warning: "XUartPs_IsTransmitEmpty" redefined
-  450 | #define XUartPs_IsTransmitEmpty(InstancePtr)                            \
-      | 
-In file included from C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps.h:170:
-C:/devWorks/DTMF/AudioProcessing_EVS/DTMF/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps_hw.h:424: note: this is the location of the previous definition
-  424 | #define XUartPs_IsTransmitEmpty(BaseAddress)                     \
-      | 
-../src/helloworld.c:29: warning: "UART_DEVICE_ID" redefined
-   29 | #define UART_DEVICE_ID      XPAR_XUARTPS_0_DEVICE_ID
-      | 
-In file included from ../src/platform.h:10,
-                 from ../src/helloworld.c:2:
-../src/platform_config.h:5: note: this is the location of the previous definition
-    5 | #define UART_DEVICE_ID 0
-      | 
-../src/helloworld.c: In function 'Timer_Intr_Setup':
-../src/helloworld.c:75:9: warning: variable 'Status' set but not used [-Wunused-but-set-variable]
-   75 |     int Status;
-      |         ^~~~~~
-../src/helloworld.c: In function 'DetectDTMFFrequency':
-../src/helloworld.c:121:16: warning: variable 'status' set but not used [-Wunused-but-set-variable]
-  121 |     arm_status status;
-      |                ^~~~~~
-../src/helloworld.c: In function 'main':
-../src/helloworld.c:209:9: warning: variable 'Status' set but not used [-Wunused-but-set-variable]
-  209 |     int Status;
-      |         ^~~~~~
-'Finished building: ../src/helloworld.c'
-' '
-'Building target: DTMF_app.elf'
-'Invoking: ARM v7 gcc linker'
-'Finished building target: DTMF_app.elf'
-' '
-'Invoking: ARM v7 Print Size'
-arm-none-eabi-size DTMF_app.elf  |tee "DTMF_app.elf.size"
-   text	   data	    bss	    dec	    hex	filename
-1570862	   2144	  30960	1603966	 18797e	DTMF_app.elf
-'Finished building: DTMF_app.elf.size'
-' '
+make[1]: Nothing to be done for 'main-build'.
 
-03:07:20 Build Finished (took 37s.17ms)
+09:53:50 Build Finished (took 28s.794ms)
 

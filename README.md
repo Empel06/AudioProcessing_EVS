@@ -18,7 +18,7 @@ In this project, you will use two Pynq boards to communicate with each other usi
 
 ### Submission:
 - Zip file with Vitis project export  
-- [YouTube demo link]() (Project demo video)
+- [YouTube demo link](https://youtu.be/8oSQ_UiNEt4) (Project demo video)
 
 ---
 
