@@ -49,3 +49,77 @@ timestamp=[2025-04-22 01:57:06], mode=BUILD, duration=0:00:26.420, duration_ms=2
 timestamp=[2025-04-22 01:57:49], mode=BUILD, duration=0:00:23.449, duration_ms=23449, data={name=DTMF_app, configuration=Debug, clean_build=false}
 timestamp=[2025-04-22 02:06:35], mode=BUILD, duration=0:00:27.168, duration_ms=27168, data={name=DTMF_app, configuration=Debug, clean_build=false}
 timestamp=[2025-04-22 02:15:14], mode=BUILD, duration=0:00:26.598, duration_ms=26598, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-22 02:35:33], mode=BUILD, duration=0:00:26.192, duration_ms=26192, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-22 02:44:50], mode=BUILD, duration=0:00:28.418, duration_ms=28418, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 09:24:59], mode=WORKBENCH_START, duration=0:00:17.085, duration_ms=17085, data={}
+timestamp=[2025-04-23 09:25:00], mode=WORKBENCH_UI_INIT, duration=0:00:01.821, duration_ms=1821, data={editors_count=7, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=AudioProcessing2,DTMF_app,DTMF_app_system,RemoteSystemsTempFiles}
+timestamp=[2025-04-23 09:25:01], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.279, duration_ms=279, data={}
+timestamp=[2025-04-23 09:26:59], mode=BUILD, duration=0:00:29.384, duration_ms=29384, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 10:16:49], mode=BUILD, duration=0:00:39.513, duration_ms=39513, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 10:25:03], mode=BUILD, duration=0:00:34.280, duration_ms=34280, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 10:28:25], mode=BUILD, duration=0:00:34.588, duration_ms=34588, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 10:32:42], mode=BUILD, duration=0:00:34.768, duration_ms=34768, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 10:42:12], mode=BUILD, duration=0:00:35.001, duration_ms=35001, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 21:32:55], mode=WORKBENCH_START, duration=0:00:14.034, duration_ms=14034, data={}
+timestamp=[2025-04-23 21:32:57], mode=WORKBENCH_UI_INIT, duration=0:00:01.463, duration_ms=1463, data={editors_count=9, platform_editors_count=3, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=AudioProcessing2,DTMF_app,DTMF_app_system,RemoteSystemsTempFiles}
+timestamp=[2025-04-23 21:32:57], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.236, duration_ms=236, data={}
+timestamp=[2025-04-23 21:34:57], mode=BUILD, duration=0:00:30.414, duration_ms=30414, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:13:20], mode=BUILD, duration=0:00:48.931, duration_ms=48931, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:15:32], mode=BUILD, duration=0:00:27.436, duration_ms=27436, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:23:01], mode=BUILD, duration=0:00:27.059, duration_ms=27059, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:26:19], mode=BUILD, duration=0:00:27.729, duration_ms=27729, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:35:49], mode=BUILD, duration=0:00:27.163, duration_ms=27163, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:40:01], mode=BUILD, duration=0:00:27.953, duration_ms=27953, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:44:13], mode=BUILD, duration=0:00:27.400, duration_ms=27400, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 22:50:06], mode=BUILD, duration=0:00:28.470, duration_ms=28470, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:04:37], mode=BUILD, duration=0:00:27.456, duration_ms=27456, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:10:12], mode=BUILD, duration=0:00:25.286, duration_ms=25286, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:15:49], mode=BUILD, duration=0:00:25.319, duration_ms=25319, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:19:33], mode=BUILD, duration=0:00:25.281, duration_ms=25281, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:20:40], mode=BUILD, duration=0:00:26.494, duration_ms=26494, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:21:24], mode=BUILD, duration=0:00:25.553, duration_ms=25553, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:23:04], mode=BUILD, duration=0:00:24.752, duration_ms=24752, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:24:10], mode=BUILD, duration=0:00:28.054, duration_ms=28054, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:29:05], mode=BUILD, duration=0:00:28.941, duration_ms=28941, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:35:07], mode=BUILD, duration=0:00:30.266, duration_ms=30266, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:50:20], mode=BUILD, duration=0:00:29.533, duration_ms=29533, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:55:42], mode=BUILD, duration=0:00:29.064, duration_ms=29064, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-23 23:56:22], mode=BUILD, duration=0:00:28.389, duration_ms=28389, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:06:14], mode=BUILD, duration=0:00:29.053, duration_ms=29053, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:16:46], mode=BUILD, duration=0:00:28.948, duration_ms=28948, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:21:21], mode=BUILD, duration=0:00:28.969, duration_ms=28969, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:26:16], mode=BUILD, duration=0:00:30.230, duration_ms=30230, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:41:47], mode=BUILD, duration=0:00:26.383, duration_ms=26383, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:43:39], mode=BUILD, duration=0:00:28.867, duration_ms=28867, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:45:01], mode=BUILD, duration=0:00:29.264, duration_ms=29264, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:46:36], mode=BUILD, duration=0:00:25.102, duration_ms=25102, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:49:12], mode=BUILD, duration=0:00:26.892, duration_ms=26892, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:53:17], mode=BUILD, duration=0:00:25.598, duration_ms=25598, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:57:25], mode=BUILD, duration=0:00:28.223, duration_ms=28223, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 00:59:58], mode=BUILD, duration=0:00:28.789, duration_ms=28789, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:28:07], mode=BUILD, duration=0:00:31.712, duration_ms=31712, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:34:54], mode=BUILD, duration=0:00:28.143, duration_ms=28143, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:36:05], mode=BUILD, duration=0:00:30.125, duration_ms=30125, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:40:04], mode=BUILD, duration=0:00:33.078, duration_ms=33078, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:43:07], mode=BUILD, duration=0:00:33.558, duration_ms=33558, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:44:07], mode=BUILD, duration=0:00:36.481, duration_ms=36481, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:46:20], mode=BUILD, duration=0:00:36.267, duration_ms=36267, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:51:37], mode=BUILD, duration=0:00:37.865, duration_ms=37865, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:54:30], mode=BUILD, duration=0:00:37.929, duration_ms=37929, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:55:29], mode=BUILD, duration=0:00:39.762, duration_ms=39762, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 01:58:42], mode=BUILD, duration=0:00:33.391, duration_ms=33391, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:14:45], mode=BUILD, duration=0:00:38.613, duration_ms=38613, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:18:52], mode=BUILD, duration=0:00:38.201, duration_ms=38201, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:23:11], mode=BUILD, duration=0:00:38.872, duration_ms=38872, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:26:14], mode=BUILD, duration=0:00:34.008, duration_ms=34008, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:28:44], mode=BUILD, duration=0:00:37.676, duration_ms=37676, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:35:21], mode=BUILD, duration=0:00:38.533, duration_ms=38533, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:42:12], mode=BUILD, duration=0:00:38.730, duration_ms=38730, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:45:31], mode=BUILD, duration=0:00:37.639, duration_ms=37639, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:50:57], mode=BUILD, duration=0:00:35.478, duration_ms=35478, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:53:24], mode=BUILD, duration=0:00:35.104, duration_ms=35104, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:55:05], mode=BUILD, duration=0:00:35.579, duration_ms=35579, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:56:59], mode=BUILD, duration=0:00:37.442, duration_ms=37442, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 02:58:30], mode=BUILD, duration=0:00:37.167, duration_ms=37167, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 03:05:40], mode=BUILD, duration=0:00:34.725, duration_ms=34725, data={name=DTMF_app, configuration=Debug, clean_build=false}
+timestamp=[2025-04-24 03:07:20], mode=BUILD, duration=0:00:37.473, duration_ms=37473, data={name=DTMF_app, configuration=Debug, clean_build=false}

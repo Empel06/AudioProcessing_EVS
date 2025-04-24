@@ -1,0 +1,287 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "arm_math.h"
+#include "arm_const_structs.h"
+#include "audio.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "math.h"
+#include "xuartps.h"
+#include "xgpio.h"
+
+XGpio GpioSwitches;
+
+int switchValue;
+bool isReceiveMode;
+
+#define UINT32_MAX_AS_FLOAT 4294967295.0f
+#define UINT_SCALED_MAX_VALUE 0xFFFFF
+
+#define TIMER_DEVICE_ID	XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR	XPAR_SCUTIMER_INTR
+
+#define FFT_SIZE 1024
+#define SAMPLE_BLOCK_SIZE (FFT_SIZE * 2)
+#define SAMPLE_RATE 48000
+#define PI                  3.14159265358979f
+#define MAX_AMPLITUDE       0x7FFFFF
+#define UART_DEVICE_ID      XPAR_XUARTPS_0_DEVICE_ID
+
+float32_t sampleBuffer[SAMPLE_BLOCK_SIZE];
+
+volatile unsigned long u32DataL, u32DataR;
+
+volatile float32_t tone_freq1 = 0.0f, tone_freq2 = 0.0f;
+volatile float32_t theta1 = 0.0f, theta2 = 0.0f;
+volatile int tone_active = 0;
+
+XUartPs Uart_Ps;
+
+typedef struct {
+    char key;
+    float f1;
+    float f2;
+} DTMF_Tone;
+
+DTMF_Tone dtmf_tones[] = {
+    {'1', 697, 1209}, {'2', 697, 1336}, {'3', 697, 1477},
+    {'4', 770, 1209}, {'5', 770, 1336}, {'6', 770, 1477},
+    {'7', 852, 1209}, {'8', 852, 1336}, {'9', 852, 1477},
+    {'*', 941, 1209}, {'0', 941, 1336}, {'#', 941, 1477}
+};
+
+// Globale toonparameters
+float freq1 = 0.0f;
+float freq2 = 0.0f;
+float phase1 = 0.0f;
+float phase2 = 0.0f;
+
+float low_freqs[4] = {697, 770, 852, 941};
+float high_freqs[3] = {1209, 1336, 1477};
+
+static void Timer_ISR(void * CallBackRef)
+{
+    if (!tone_active) return;
+
+    float32_t inc1 = 2 * PI * tone_freq1 / SAMPLE_RATE;
+    float32_t inc2 = 2 * PI * tone_freq2 / SAMPLE_RATE;
+
+    theta1 += inc1;
+    if (theta1 > 2 * PI) theta1 -= 2 * PI;
+
+    theta2 += inc2;
+    if (theta2 > 2 * PI) theta2 -= 2 * PI;
+
+    float32_t val = (arm_sin_f32(theta1) + arm_sin_f32(theta2)) * 0.5f;
+    val = fmaxf(fminf(val, 1.0f), -1.0f);
+
+    uint32_t scaled = (uint32_t)(((val + 1.0f) * 0.5f) * UINT_SCALED_MAX_VALUE);
+
+    Xil_Out32(I2S_DATA_TX_L_REG, scaled);
+    Xil_Out32(I2S_DATA_TX_R_REG, scaled);  // Voeg rechterkanaal toe
+}
+
+static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId)
+{
+    XScuGic_Config *IntcConfig;
+    IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, IntcInstancePtr);
+    XScuGic_Connect(IntcInstancePtr, TimerIntrId, (Xil_ExceptionHandler)Timer_ISR, (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+    return XST_SUCCESS;
+}
+
+char lastDetectedKey = '?';
+
+char matchDTMF(float f1, float f2, float *errorOut)
+{
+    char bestKey = '?';
+    float minError = 1e6;
+
+    for (int i = 0; i < sizeof(dtmf_tones)/sizeof(DTMF_Tone); i++) {
+        float df1 = fabsf(f1 - dtmf_tones[i].low_freq) + fabsf(f2 - dtmf_tones[i].high_freq);
+        float df2 = fabsf(f2 - dtmf_tones[i].low_freq) + fabsf(f1 - dtmf_tones[i].high_freq);
+        float err = (df1 < df2) ? df1 : df2;
+
+        if (err < minError) {
+            minError = err;
+            bestKey = dtmf_tones[i].key;
+        }
+    }
+
+    if (errorOut) *errorOut = minError;
+    return bestKey;
+}
+
+void DetectDTMFFrequency()
+{
+    arm_status status;
+    float32_t mag[FFT_SIZE];
+
+    for (int i = 0; i < FFT_SIZE; i++) {
+        int32_t raw = (int32_t)(Xil_In32(I2S_DATA_RX_L_REG) << 8) >> 8;
+        float32_t sample = (float32_t)raw / 8388608.0f;
+        sampleBuffer[2*i] = sample;
+        sampleBuffer[2*i+1] = 0.0f;
+        usleep(20);
+    }
+
+    arm_cfft_instance_f32 fft_inst;
+    status = arm_cfft_init_f32(&fft_inst, FFT_SIZE);
+    uint8_t ifftFlag = 0;
+    uint8_t doBitReverse = 1;
+    arm_cfft_f32(&fft_inst, sampleBuffer, ifftFlag, doBitReverse);
+
+    arm_cmplx_mag_f32(sampleBuffer, mag, FFT_SIZE);
+
+    float maxLow = 0, maxHigh = 0;
+    int lowIdx = -1, highIdx = -1;
+
+    for (int i = 1; i < FFT_SIZE / 2; i++) {
+        float freq = (float)i * SAMPLE_RATE / FFT_SIZE;
+        if (freq >= 650 && freq <= 1050) {
+            if (mag[i] > maxLow) {
+                maxLow = mag[i];
+                lowIdx = i;
+            }
+        } else if (freq >= 1100 && freq <= 1700) {
+            if (mag[i] > maxHigh) {
+                maxHigh = mag[i];
+                highIdx = i;
+            }
+        }
+    }
+
+    static bool lastWasSilence = false;
+
+    if (lowIdx < 0 || highIdx < 0 || maxLow < 0.02f || maxHigh < 0.02f || (maxHigh / maxLow) < 0.3f) {
+        if (!lastWasSilence) {
+            xil_printf("SHHHH\r\n");
+            lastWasSilence = true;
+        }
+        return;
+    } else {
+        lastWasSilence = false;
+    }
+
+    float freq1 = lowIdx * SAMPLE_RATE / FFT_SIZE;
+    float freq2 = highIdx * SAMPLE_RATE / FFT_SIZE;
+
+    float error;
+    char key = matchDTMF(freq1, freq2, &error);
+    if (error < 45) {
+        if (key != lastDetectedKey) {
+            xil_printf("Detected Key: %c (error: %d Hz)\r\n", key, (int)error);
+            lastDetectedKey = key;
+        }
+    }
+
+    usleep(200000);
+    return;
+}
+
+void PlayDTMF(float32_t f1, float32_t f2, float duration_sec)
+{
+    xil_printf("Playing DTMF: %.1f Hz + %.1f Hz\r\n", (int)f1, (int)f2);
+
+    tone_freq1 = f1;
+    tone_freq2 = f2;
+    theta1 = theta2 = 0.0f;
+    tone_active = 1;
+    usleep((int)(duration_sec * 1000000));
+    tone_active = 0;
+}
+
+void receivingLoop()
+{
+    DetectDTMFFrequency();
+}
+
+void sendingLoop()
+{
+    char c;
+    if (XUartPs_Recv(&Uart_Ps, &c, 1) == 1) {
+        xil_printf("Received: %c\r\n", c);  // Debug: Toon het ontvangen karakter
+        bool found = false;  // Voeg een flag toe om te controleren of we de juiste toon vinden
+        for (int i = 0; i < sizeof(dtmf_tones)/sizeof(DTMF_Tone); i++) {
+            // Zorg ervoor dat de ontvangen toets overeenkomt met een van de DTMF tonen
+            if (dtmf_tones[i].key == c) {
+                xil_printf("Playing DTMF: %.1f Hz + %.1f Hz\r\n", dtmf_tones[i].low_freq, dtmf_tones[i].high_freq);  // Debug: Toon de frequenties
+                tone_freq1 = dtmf_tones[i].low_freq;  // Stel de lage frequentie in
+                tone_freq2 = dtmf_tones[i].high_freq; // Stel de hoge frequentie in
+                PlayDTMF(dtmf_tones[i].low_freq, dtmf_tones[i].high_freq, 1.0f); // Speel de DTMF toon af
+                found = true;  // Markeer dat we de toon hebben gevonden
+                break;
+            }
+        }
+        if (!found) {
+            xil_printf("Invalid key received: %c. No matching DTMF tone.\r\n");  // Debug: Toon wanneer geen match is gevonden
+        }
+    }
+}
+
+
+int main()
+{
+    int Status;
+    init_platform();
+
+    XUartPs_Config *Config = XUartPs_LookupConfig(XPAR_XUARTPS_0_DEVICE_ID);
+    XUartPs_CfgInitialize(&Uart_Ps, Config, Config->BaseAddress);
+    XUartPs_SetBaudRate(&Uart_Ps, 115200);
+    xil_printf("Ready for input\r\n");
+
+    XGpio_Initialize(&GpioSwitches, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioSwitches, 2, 0xF);
+    switchValue = XGpio_DiscreteRead(&GpioSwitches, 2);
+    isReceiveMode = (switchValue & 0x1) != 0;
+    xil_printf("Mode: %s\r\n", isReceiveMode ? "Receive" : "Send");
+
+    IicConfig(XPAR_XIICPS_0_DEVICE_ID);
+    AudioPllConfig();
+    AudioConfigureJacks();
+    LineinLineoutConfig();
+
+    XScuTimer Scu_Timer;
+    XScuTimer_Config *Scu_ConfigPtr;
+    XScuGic IntcInstance;
+
+    Scu_ConfigPtr = XScuTimer_LookupConfig(XPAR_PS7_SCUTIMER_0_DEVICE_ID);
+    Status = XScuTimer_CfgInitialize(&Scu_Timer, Scu_ConfigPtr, Scu_ConfigPtr->BaseAddr);
+    Status = Timer_Intr_Setup(&IntcInstance, &Scu_Timer, XPS_SCU_TMR_INT_ID);
+    XScuTimer_LoadTimer(&Scu_Timer, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / (SAMPLE_RATE));
+    XScuTimer_EnableAutoReload(&Scu_Timer);
+    XScuTimer_Start(&Scu_Timer);
+
+    for(;;)
+    {
+        static int prevSwitchValue = -1;
+
+        switchValue = XGpio_DiscreteRead(&GpioSwitches, 2);
+        if (switchValue != prevSwitchValue)
+        {
+            isReceiveMode = (switchValue & 0x1) != 0;
+            xil_printf("Mode: %s\r\n", isReceiveMode ? "Receiving" : "Sending");
+            prevSwitchValue = switchValue;
+        }
+
+        if (isReceiveMode)
+        {
+            receivingLoop();
+        }
+        else
+        {
+            sendingLoop();
+        }
+    }
+
+    cleanup_platform();
+    return 0;
+}
