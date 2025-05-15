@@ -1,0 +1,10 @@
+10:19:28 **** Incremental Build of configuration Debug for project AudioSynthesizer_app ****
+make -j12 all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+make[1]: Nothing to be done for 'main-build'.
+
+10:19:38 Build Finished (took 10s.305ms)
+

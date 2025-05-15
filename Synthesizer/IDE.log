@@ -1,0 +1,53 @@
+09:48:04 DEBUG : Logs will be stored at 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/IDE.log'.
+09:48:07 INFO  : Registering command handlers for Vitis TCF services
+09:48:07 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\temp_xsdb_launch_script.tcl
+09:48:07 INFO  : Platform repository initialization has completed.
+09:48:08 ERROR : (XSDB Server)'\gnu\microblaze\lin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+09:48:08 ERROR : (XSDB Server)'\gnu\microblaze\nt\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+09:48:08 ERROR : (XSDB Server)'\gnuwin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+09:48:13 INFO  : XSCT server has started successfully.
+09:48:21 INFO  : Successfully done setting XSCT server connection channel  
+09:48:21 INFO  : plnx-install-location is set to ''
+09:48:21 INFO  : Successfully done query RDI_DATADIR 
+09:48:21 INFO  : Successfully done setting workspace for the tool. 
+09:50:57 INFO  : Result from executing command 'getProjects': AudioProcessing2
+09:50:57 INFO  : Result from executing command 'getPlatforms': 
+09:50:57 WARN  : An unexpected exception occurred in the module 'platform project logging'
+09:50:58 INFO  : Platform 'AudioProcessing2' is added to custom repositories.
+09:51:09 INFO  : Platform 'AudioProcessing2' is added to custom repositories.
+10:01:17 INFO  : Result from executing command 'getProjects': AudioProcessing2
+10:01:17 INFO  : Result from executing command 'getPlatforms': AudioProcessing2|C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/AudioProcessing2.xpfm
+10:01:18 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:03:13 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:08:37 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:10:00 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:13:04 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:15:56 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:09:27 DEBUG : Logs will be stored at 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/IDE.log'.
+10:09:28 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\temp_xsdb_launch_script.tcl
+10:09:28 ERROR : (XSDB Server)'\gnu\microblaze\lin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+10:09:28 ERROR : (XSDB Server)'\gnu\microblaze\nt\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+10:09:28 ERROR : (XSDB Server)'\gnuwin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+10:09:31 INFO  : Registering command handlers for Vitis TCF services
+10:09:31 INFO  : Platform repository initialization has completed.
+10:09:33 INFO  : XSCT server has started successfully.
+10:09:37 INFO  : Successfully done setting XSCT server connection channel  
+10:09:37 INFO  : plnx-install-location is set to ''
+10:09:37 INFO  : Successfully done query RDI_DATADIR 
+10:09:37 INFO  : Successfully done setting workspace for the tool. 
+10:09:39 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:09:59 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:17:13 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+10:19:27 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
