@@ -37,4 +37,4 @@ In this project, you will build an audio synthesizer using the Pynq-Z2 board. Th
 
 ### Submission:
 - Zip file with Vitis project export  
-- [YouTube demo link]() (Project demo video)
+- [YouTube demo link](https://youtu.be/iipLF8zrmjs) (Project demo video)

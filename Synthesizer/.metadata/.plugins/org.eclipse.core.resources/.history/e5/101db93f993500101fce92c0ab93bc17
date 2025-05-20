@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="AudioSynthesizer_app" location="C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app" platform="C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/AudioProcessing2.xpfm" platformUID="xilinx:pynq-z2::0.0(custom)" systemProject="AudioSynthesizer_app_system" sysConfig="AudioProcessing2" runtime="cpp" cpu="standalone_ps7_cortexa9_0" cpuInstance="ps7_cortexa9_0" os="standalone" mssSignature="8d7de4fd05ed624ba7620745b05b3161">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.904570211">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.1119507961" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="hello_world"/>
+</sdkproject:SdkProject>

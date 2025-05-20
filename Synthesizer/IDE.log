@@ -75,3 +75,613 @@ operable program or batch file.
 20:45:54 INFO  : Successfully done query RDI_DATADIR 
 20:45:54 INFO  : Successfully done setting workspace for the tool. 
 20:46:21 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+17:35:20 DEBUG : Logs will be stored at 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/IDE.log'.
+17:35:21 INFO  : Launching XSCT server: xsct.bat -n  -interactive C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\temp_xsdb_launch_script.tcl
+17:35:21 ERROR : (XSDB Server)'\gnu\microblaze\lin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+17:35:21 ERROR : (XSDB Server)'\gnu\microblaze\nt\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+17:35:21 ERROR : (XSDB Server)'\gnuwin\bin\' is not recognized as an internal or external command,
+operable program or batch file.
+
+17:35:23 INFO  : Platform repository initialization has completed.
+17:35:24 INFO  : Registering command handlers for Vitis TCF services
+17:35:26 INFO  : XSCT server has started successfully.
+17:35:30 INFO  : Successfully done setting XSCT server connection channel  
+17:35:30 INFO  : plnx-install-location is set to ''
+17:35:30 INFO  : Successfully done query RDI_DATADIR 
+17:35:30 INFO  : Successfully done setting workspace for the tool. 
+17:41:03 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+17:51:11 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+17:54:48 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+17:54:49 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+17:54:49 INFO  : 'jtag frequency' command is executed.
+17:54:49 INFO  : Context for 'APU' is selected.
+17:54:49 INFO  : System reset is completed.
+17:54:52 INFO  : 'after 3000' command is executed.
+17:54:52 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+17:54:55 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+17:54:55 INFO  : Context for 'APU' is selected.
+17:54:55 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+17:54:55 INFO  : 'configparams force-mem-access 1' command is executed.
+17:54:55 INFO  : Context for 'APU' is selected.
+17:54:55 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+17:54:55 INFO  : 'ps7_init' command is executed.
+17:54:55 INFO  : 'ps7_post_config' command is executed.
+17:54:55 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+17:54:58 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+17:54:58 INFO  : 'configparams force-mem-access 0' command is executed.
+17:54:58 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+17:54:58 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+17:54:58 INFO  : 'con' command is executed.
+17:54:58 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+17:54:58 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:14:01 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:16:31 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:16:50 INFO  : Disconnected from the channel tcfchan#1.
+18:16:56 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:16:56 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:16:56 INFO  : 'jtag frequency' command is executed.
+18:16:56 INFO  : Context for 'APU' is selected.
+18:16:56 INFO  : System reset is completed.
+18:16:59 INFO  : 'after 3000' command is executed.
+18:16:59 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:17:01 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:17:01 INFO  : Context for 'APU' is selected.
+18:17:03 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:17:03 INFO  : 'configparams force-mem-access 1' command is executed.
+18:17:03 INFO  : Context for 'APU' is selected.
+18:17:03 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:17:04 INFO  : 'ps7_init' command is executed.
+18:17:04 INFO  : 'ps7_post_config' command is executed.
+18:17:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:17:07 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:17:07 INFO  : 'configparams force-mem-access 0' command is executed.
+18:17:07 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:17:07 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:17:07 INFO  : 'con' command is executed.
+18:17:07 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:17:07 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:17:44 INFO  : Disconnected from the channel tcfchan#2.
+18:17:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:17:53 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:17:53 INFO  : 'jtag frequency' command is executed.
+18:17:53 INFO  : Context for 'APU' is selected.
+18:17:53 INFO  : System reset is completed.
+18:17:56 INFO  : 'after 3000' command is executed.
+18:17:56 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:17:58 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:17:58 INFO  : Context for 'APU' is selected.
+18:18:01 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:18:01 INFO  : 'configparams force-mem-access 1' command is executed.
+18:18:01 INFO  : Context for 'APU' is selected.
+18:18:01 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:18:01 INFO  : 'ps7_init' command is executed.
+18:18:01 INFO  : 'ps7_post_config' command is executed.
+18:18:01 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:18:04 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:18:04 INFO  : 'configparams force-mem-access 0' command is executed.
+18:18:04 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:18:04 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:18:04 INFO  : 'con' command is executed.
+18:18:04 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:18:04 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:19:25 INFO  : Disconnected from the channel tcfchan#3.
+18:20:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:20:51 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:20:51 INFO  : 'jtag frequency' command is executed.
+18:20:52 INFO  : Context for 'APU' is selected.
+18:20:52 INFO  : System reset is completed.
+18:20:55 INFO  : 'after 3000' command is executed.
+18:20:55 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:20:57 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:20:57 INFO  : Context for 'APU' is selected.
+18:20:59 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:20:59 INFO  : 'configparams force-mem-access 1' command is executed.
+18:21:00 INFO  : Context for 'APU' is selected.
+18:21:00 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:21:00 INFO  : 'ps7_init' command is executed.
+18:21:00 INFO  : 'ps7_post_config' command is executed.
+18:21:00 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:21:03 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:21:03 INFO  : 'configparams force-mem-access 0' command is executed.
+18:21:03 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:21:03 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:21:03 INFO  : 'con' command is executed.
+18:21:03 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:21:03 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:25:23 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:25:24 INFO  : Disconnected from the channel tcfchan#4.
+18:25:56 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:26:44 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:26:45 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:26:45 INFO  : 'jtag frequency' command is executed.
+18:26:45 INFO  : Context for 'APU' is selected.
+18:26:45 INFO  : System reset is completed.
+18:26:48 INFO  : 'after 3000' command is executed.
+18:26:48 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:26:50 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:26:50 INFO  : Context for 'APU' is selected.
+18:26:50 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:26:50 INFO  : 'configparams force-mem-access 1' command is executed.
+18:26:50 INFO  : Context for 'APU' is selected.
+18:26:50 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:26:51 INFO  : 'ps7_init' command is executed.
+18:26:51 INFO  : 'ps7_post_config' command is executed.
+18:26:51 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:26:54 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:26:54 INFO  : 'configparams force-mem-access 0' command is executed.
+18:26:54 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:26:54 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:26:54 INFO  : 'con' command is executed.
+18:26:54 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:26:54 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:32:28 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:32:51 INFO  : Disconnected from the channel tcfchan#5.
+18:32:52 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:33:01 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+----------------End of Script----------------
+
+18:33:01 ERROR : Could not find FPGA device on the board for connection 'Local'.
+
+
+Troubleshooting hints:
+1. Check whether board is connected to system properly.
+2. In case of zynq board, check whether Digilent/Xilinx cable switch settings are correct.
+3. If you are using Xilinx Platform Cable USB, ensure that status LED is green.
+18:33:10 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:33:10 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:33:10 INFO  : 'jtag frequency' command is executed.
+18:33:10 INFO  : Context for 'APU' is selected.
+18:33:10 INFO  : System reset is completed.
+18:33:13 INFO  : 'after 3000' command is executed.
+18:33:13 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:33:16 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:33:16 INFO  : Context for 'APU' is selected.
+18:33:18 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:33:18 INFO  : 'configparams force-mem-access 1' command is executed.
+18:33:18 INFO  : Context for 'APU' is selected.
+18:33:18 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:33:19 INFO  : 'ps7_init' command is executed.
+18:33:19 INFO  : 'ps7_post_config' command is executed.
+18:33:19 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:33:22 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:33:22 INFO  : 'configparams force-mem-access 0' command is executed.
+18:33:22 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:33:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:33:22 INFO  : 'con' command is executed.
+18:33:22 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:33:22 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:35:46 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:36:13 INFO  : Disconnected from the channel tcfchan#6.
+18:36:16 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:36:16 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:36:16 INFO  : 'jtag frequency' command is executed.
+18:36:16 INFO  : Context for 'APU' is selected.
+18:36:16 INFO  : System reset is completed.
+18:36:19 INFO  : 'after 3000' command is executed.
+18:36:19 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:36:22 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:36:22 INFO  : Context for 'APU' is selected.
+18:36:25 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:36:25 INFO  : 'configparams force-mem-access 1' command is executed.
+18:36:25 INFO  : Context for 'APU' is selected.
+18:36:25 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:36:25 INFO  : 'ps7_init' command is executed.
+18:36:25 INFO  : 'ps7_post_config' command is executed.
+18:36:25 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:36:29 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:36:29 INFO  : 'configparams force-mem-access 0' command is executed.
+18:36:29 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:36:29 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:36:29 INFO  : 'con' command is executed.
+18:36:29 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:36:29 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:39:19 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:39:50 INFO  : Disconnected from the channel tcfchan#7.
+18:39:54 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:39:54 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:39:54 INFO  : 'jtag frequency' command is executed.
+18:39:54 INFO  : Context for 'APU' is selected.
+18:39:54 INFO  : System reset is completed.
+18:39:57 INFO  : 'after 3000' command is executed.
+18:39:57 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:39:59 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:39:59 INFO  : Context for 'APU' is selected.
+18:40:02 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:40:02 INFO  : 'configparams force-mem-access 1' command is executed.
+18:40:02 INFO  : Context for 'APU' is selected.
+18:40:02 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:40:02 INFO  : 'ps7_init' command is executed.
+18:40:02 INFO  : 'ps7_post_config' command is executed.
+18:40:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:40:05 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:40:06 INFO  : 'configparams force-mem-access 0' command is executed.
+18:40:06 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:40:06 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:40:06 INFO  : 'con' command is executed.
+18:40:06 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:40:06 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:40:58 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:40:59 INFO  : Disconnected from the channel tcfchan#8.
+18:41:29 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:45:55 INFO  : Checking for BSP changes to sync application flags for project 'AudioSynthesizer_app'...
+18:46:25 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:46:26 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:46:26 INFO  : 'jtag frequency' command is executed.
+18:46:26 INFO  : Context for 'APU' is selected.
+18:46:26 INFO  : System reset is completed.
+18:46:29 INFO  : 'after 3000' command is executed.
+18:46:29 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:46:31 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:46:31 INFO  : Context for 'APU' is selected.
+18:46:31 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:46:31 INFO  : 'configparams force-mem-access 1' command is executed.
+18:46:31 INFO  : Context for 'APU' is selected.
+18:46:31 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:46:32 INFO  : 'ps7_init' command is executed.
+18:46:32 INFO  : 'ps7_post_config' command is executed.
+18:46:32 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:46:35 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:46:35 INFO  : 'configparams force-mem-access 0' command is executed.
+18:46:35 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:46:35 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:46:35 INFO  : 'con' command is executed.
+18:46:35 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:46:35 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:49:44 INFO  : Disconnected from the channel tcfchan#9.
+18:49:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:49:53 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:49:53 INFO  : 'jtag frequency' command is executed.
+18:49:54 INFO  : Context for 'APU' is selected.
+18:49:54 INFO  : System reset is completed.
+18:49:57 INFO  : 'after 3000' command is executed.
+18:49:57 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:49:59 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:49:59 INFO  : Context for 'APU' is selected.
+18:50:02 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:50:02 INFO  : 'configparams force-mem-access 1' command is executed.
+18:50:02 INFO  : Context for 'APU' is selected.
+18:50:02 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:50:02 INFO  : 'ps7_init' command is executed.
+18:50:02 INFO  : 'ps7_post_config' command is executed.
+18:50:02 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:50:06 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:50:06 INFO  : 'configparams force-mem-access 0' command is executed.
+18:50:06 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:50:06 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:50:06 INFO  : 'con' command is executed.
+18:50:06 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:50:06 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:52:46 INFO  : Disconnected from the channel tcfchan#10.
+18:52:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:52:52 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:52:52 INFO  : 'jtag frequency' command is executed.
+18:52:52 INFO  : Context for 'APU' is selected.
+18:52:52 INFO  : System reset is completed.
+18:52:55 INFO  : 'after 3000' command is executed.
+18:52:55 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:52:57 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:52:57 INFO  : Context for 'APU' is selected.
+18:53:01 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:53:01 INFO  : 'configparams force-mem-access 1' command is executed.
+18:53:01 INFO  : Context for 'APU' is selected.
+18:53:01 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:53:01 INFO  : 'ps7_init' command is executed.
+18:53:01 INFO  : 'ps7_post_config' command is executed.
+18:53:01 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:53:05 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:53:05 INFO  : 'configparams force-mem-access 0' command is executed.
+18:53:05 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:53:05 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:53:05 INFO  : 'con' command is executed.
+18:53:05 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:53:05 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+18:55:48 INFO  : Disconnected from the channel tcfchan#11.
+18:55:49 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:56:07 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+----------------End of Script----------------
+
+18:56:07 ERROR : Could not find ARM device on the board for connection 'Local'.
+Check if the target is in:
+1. Split JTAG - No operations are possible with ARM DAP.
+2. Non JTAG bootmode - Bootrom may need time to enable DAP.
+Please try again.
+
+
+Troubleshooting hints:
+1. Check whether board is connected to system properly.
+2. In case of zynq board, check whether Digilent/Xilinx cable switch settings are correct.
+3. If you are using Xilinx Platform Cable USB, ensure that status LED is green.
+18:56:30 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+18:56:31 INFO  : Jtag cable 'Xilinx HW-FTDI-TEST FT2232H 1234-tulA' is selected.
+18:56:31 INFO  : 'jtag frequency' command is executed.
+18:56:31 INFO  : Context for 'APU' is selected.
+18:56:31 INFO  : System reset is completed.
+18:56:34 INFO  : 'after 3000' command is executed.
+18:56:34 INFO  : 'targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}' command is executed.
+18:56:36 INFO  : Device configured successfully with "C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit"
+18:56:36 INFO  : Context for 'APU' is selected.
+18:56:40 INFO  : Hardware design and registers information is loaded from 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa'.
+18:56:40 INFO  : 'configparams force-mem-access 1' command is executed.
+18:56:40 INFO  : Context for 'APU' is selected.
+18:56:40 INFO  : Sourcing of 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl' is done.
+18:56:41 INFO  : 'ps7_init' command is executed.
+18:56:41 INFO  : 'ps7_post_config' command is executed.
+18:56:41 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:56:44 INFO  : The application 'C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf' is downloaded to processor 'ps7_cortexa9_0'.
+18:56:44 INFO  : 'configparams force-mem-access 0' command is executed.
+18:56:44 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Xilinx HW-FTDI-TEST FT2232H 1234-tulA" && level==0 && jtag_device_ctx=="jsn-HW-FTDI-TEST FT2232H-1234-tulA-23727093-0"}
+fpga -file C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/bitstream/AudioProcessing2.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/hw/AudioProcessing2.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow C:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioSynthesizer_app/Debug/AudioSynthesizer_app.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+18:56:44 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+18:56:44 INFO  : 'con' command is executed.
+18:56:44 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+18:56:44 INFO  : Launch script is exported to file 'C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app_system\_ide\scripts\debugger_audiosynthesizer_app-default.tcl'
+19:26:56 INFO  : Disconnected from the channel tcfchan#12.

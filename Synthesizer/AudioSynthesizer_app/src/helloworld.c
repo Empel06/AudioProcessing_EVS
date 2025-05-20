@@ -4,6 +4,7 @@
 #include "xgpio.h"
 #include <math.h>
 #include "xparameters.h"
+#include "xil_printf.h"
 
 #define TIMER_DEVICE_ID      XPAR_XSCUTIMER_0_DEVICE_ID
 #define INTC_DEVICE_ID       XPAR_SCUGIC_SINGLE_DEVICE_ID
@@ -16,6 +17,7 @@
 // GPIO
 XGpio GpioButtons;
 XGpio GpioSwitches;
+XGpio GpioLed;
 
 // Audio variables
 volatile int32_t inputL, inputR, outputL, outputR;
@@ -30,9 +32,75 @@ int delayIndex = 0;
 // Tone generation phases
 static float phase1 = 0.0f, phase2 = 0.0f, phase3 = 0.0f, phase4 = 0.0f;
 
+// Status tracking for terminal output
+u32 prevButtonStatus = 0xFFFFFFFF;
+u32 prevSwitchStatus = 0xFFFFFFFF;
+
+// LEDS Signal
+void DisplayStatusOnLED(u32 buttonStatus, u32 switchStatus) {
+    uint8_t ledValue = 0x00;
+
+    // Toon toonselectie op LD0–3 (alleen als geen echo/reverb actief is)
+    if ((switchStatus & 0x3) == 0) {
+        switch (buttonStatus) {
+            case 1: ledValue |= 0x01; break;  // A4  LD0
+            case 2: ledValue |= 0x02; break;  // C5  LD1
+            case 4: ledValue |= 0x04; break;  // E5  LD2
+            case 8: ledValue |= 0x08; break;  // G5  LD3
+            default: break;
+        }
+    }
+
+    // Echo actief: LD0 en LD1
+    if (switchStatus & 0x1) {
+        ledValue |= 0x03;
+    }
+
+    // Reverb actief: LD2 en LD3
+    if (switchStatus & 0x2) {
+        ledValue |= 0x0C;
+    }
+
+    XGpio_DiscreteWrite(&GpioLed, 1, ledValue);
+}
+
+// Print status als deze veranderd is
+void PrintStatusIfChanged(u32 buttonStatus, u32 switchStatus) {
+    if (buttonStatus != prevButtonStatus || switchStatus != prevSwitchStatus) {
+        xil_printf("Status: ");
+
+        // Toon geselecteerde toon
+        switch (buttonStatus) {
+            case 1: xil_printf("A4 "); break;
+            case 2: xil_printf("C5 "); break;
+            case 4: xil_printf("E5 "); break;
+            case 8: xil_printf("G5 "); break;
+            default: xil_printf("No tone "); break;
+        }
+
+        // Echo
+        if (switchStatus & 0x1) {
+            xil_printf("| Echo ON ");
+        } else {
+            xil_printf("| Echo OFF ");
+        }
+
+        // Reverb
+        if (switchStatus & 0x2) {
+            xil_printf("| Reverb ON\r\n");
+        } else {
+            xil_printf("| Reverb OFF\r\n");
+        }
+
+        // Update vorige status
+        prevButtonStatus = buttonStatus;
+        prevSwitchStatus = switchStatus;
+    }
+}
+
 // Generate a sine wave tone
 void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
-    const float amplitude = 1000000.0f;  // Adjust amplitude as needed
+    const float amplitude = 1000000.0f;
     const float increment = 2.0f * PI * frequency / SAMPLE_RATE;
 
     for (int i = 0; i < bufferSize; i++) {
@@ -47,22 +115,16 @@ void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize
 
 // Echo effect
 void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
-    // Simple echo: average current input with delayed sample
     *outputL = (*inputL + echoBufferL[delayIndex]) / 2;
     *outputR = (*inputR + echoBufferR[delayIndex]) / 2;
-
-    // Store current output in delay buffer
     echoBufferL[delayIndex] = *outputL;
     echoBufferR[delayIndex] = *outputR;
 }
 
 // Reverb effect
 void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
-    // Simple reverb: weighted average of current input and delayed sample
     *outputL = (*inputL * 3 + reverbBufferL[delayIndex]) / 4;
     *outputR = (*inputR * 3 + reverbBufferR[delayIndex]) / 4;
-
-    // Store current output in delay buffer
     reverbBufferL[delayIndex] = *outputL;
     reverbBufferR[delayIndex] = *outputR;
 }
@@ -75,6 +137,12 @@ static void Timer_ISR(void *CallBackRef) {
     // Read GPIOs
     u32 buttonStatus = XGpio_DiscreteRead(&GpioButtons, 1);
     u32 switchStatus = XGpio_DiscreteRead(&GpioSwitches, 2);
+
+    // Display LEDS
+    DisplayStatusOnLED(buttonStatus, switchStatus);
+
+    // Print status to terminal if changed
+    PrintStatusIfChanged(buttonStatus, switchStatus);
 
     // Read input
     inputL = (int32_t)Xil_In32(I2S_DATA_RX_L_REG);
@@ -100,7 +168,7 @@ static void Timer_ISR(void *CallBackRef) {
             break;
     }
 
-    // Switch-based echo/reverb
+    // Switch-based effects
     if (switchStatus & 0x1) {
         EchoEffect(&outputL, &outputR, &outputL, &outputR);
     }
@@ -135,11 +203,17 @@ int main() {
     AudioConfigureJacks();
     LineinLineoutConfig();
 
+    xil_printf("Audio Synthesiser DEMO\r\n");
+
     // GPIO setup
     XGpio_Initialize(&GpioButtons, XPAR_AXI_GPIO_1_DEVICE_ID);
     XGpio_Initialize(&GpioSwitches, XPAR_AXI_GPIO_1_DEVICE_ID);
     XGpio_SetDataDirection(&GpioButtons, 1, 0xF);  // 4 buttons
     XGpio_SetDataDirection(&GpioSwitches, 2, 0x3); // 2 switches
+
+    // LEDS init
+    XGpio_Initialize(&GpioLed, XPAR_AXI_GPIO_2_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioLed, 1, 0x0); // output
 
     // Timer setup
     XScuTimer Scu_Timer;
