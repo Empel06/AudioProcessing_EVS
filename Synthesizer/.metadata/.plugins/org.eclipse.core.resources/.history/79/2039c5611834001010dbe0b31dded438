@@ -1,0 +1,135 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "xgpio.h"
+#include "arm_math.h"
+#include <stdbool.h>
+
+#define TIMER_DEVICE_ID     XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID      XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR     XPAR_SCUTIMER_INTR
+#define SAMPLE_RATE         48000
+#define MAX_AMPLITUDE       0x7FFFFF
+
+#define I2S_DATA_TX_L_REG   0x43C00000
+#define I2S_DATA_TX_R_REG   0x43C00004
+
+#define GPIO_PUSHBUTTONS_DEVICE_ID XPAR_AXI_GPIO_0_DEVICE_ID
+#define GPIO_SWITCHES_DEVICE_ID    XPAR_AXI_GPIO_1_DEVICE_ID
+
+XGpio GpioPushButtons;
+XGpio GpioSwitches;
+
+XScuTimer TimerInstance;
+XScuGic IntcInstance;
+
+volatile uint32_t buttonStatus = 0;
+volatile float phase = 0.0f;
+
+float inputL = 0.0f, inputR = 0.0f;
+float outputL = 0.0f, outputR = 0.0f;
+
+// DECLARE jouw effecten
+void SpacePhaserEffect(float *inL, float *inR, float *outL, float *outR, int samples, float rate, float depth);
+void GeneratePianoTone(float *outL, float *outR, int samples);
+void PacManSoundEffect(float *inL, float *inR, float *outL, float *outR, int samples);
+void TremoloEffect(float *inL, float *inR, float *outL, float *outR, int samples, float rate, float depth);
+
+static void Timer_ISR(void *CallBackRef) {
+    XScuTimer *TimerInstancePtr = (XScuTimer *)CallBackRef;
+    XScuTimer_ClearInterruptStatus(TimerInstancePtr);
+
+    // Simuleer input (hier gewoon een sinustoon)
+    float freq = 440.0f;
+    float step = 2.0f * PI * freq / SAMPLE_RATE;
+    phase += step;
+    if (phase > 2.0f * PI) phase -= 2.0f * PI;
+    inputL = inputR = arm_sin_f32(phase);
+
+    // Effecten logica
+    switch (buttonStatus) {
+        case 1:
+            SpacePhaserEffect(&inputL, &inputR, &outputL, &outputR, 1, 0.01f, 0.05f);
+            break;
+        case 2:
+            GeneratePianoTone(&outputL, &outputR, 1);
+            break;
+        case 4:
+            PacManSoundEffect(&inputL, &inputR, &outputL, &outputR, 1);
+            break;
+        case 8:
+            TremoloEffect(&inputL, &inputR, &outputL, &outputR, 1, 5.0f, 0.5f);
+            break;
+        default:
+            outputL = inputL;
+            outputR = inputR;
+            break;
+    }
+
+    // Output versturen
+    uint32_t sampleL = (uint32_t)(((outputL + 1.0f) / 2.0f) * MAX_AMPLITUDE);
+    uint32_t sampleR = (uint32_t)(((outputR + 1.0f) / 2.0f) * MAX_AMPLITUDE);
+    Xil_Out32(I2S_DATA_TX_L_REG, sampleL);
+    Xil_Out32(I2S_DATA_TX_R_REG, sampleR);
+}
+
+static int Timer_Intr_Setup(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId) {
+    int Status;
+    XScuGic_Config *IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+                                 (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+                                 IntcInstancePtr);
+    Status = XScuGic_Connect(IntcInstancePtr, TimerIntrId,
+                             (Xil_ExceptionHandler)Timer_ISR,
+                             (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+
+    return Status;
+}
+
+int main() {
+    int Status;
+    init_platform();
+
+    // GPIO Init
+    XGpio_Initialize(&GpioPushButtons, GPIO_PUSHBUTTONS_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioPushButtons, 1, 0xF);
+
+    XGpio_Initialize(&GpioSwitches, GPIO_SWITCHES_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioSwitches, 1, 0x3);
+
+    xil_printf("Synthesizer gestart: druk op knoppen om effecten te horen.\n\r");
+
+    // Timer Init
+    XScuTimer_Config *TimerConfigPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
+    Status = XScuTimer_CfgInitialize(&TimerInstance, TimerConfigPtr, TimerConfigPtr->BaseAddr);
+    if (Status != XST_SUCCESS) {
+        xil_printf("Timer init mislukt!\n\r");
+        return XST_FAILURE;
+    }
+
+    Status = Timer_Intr_Setup(&IntcInstance, &TimerInstance, TIMER_IRPT_INTR);
+    if (Status != XST_SUCCESS) {
+        xil_printf("Interrupt setup mislukt!\n\r");
+        return XST_FAILURE;
+    }
+
+    XScuTimer_LoadTimer(&TimerInstance, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / SAMPLE_RATE);
+    XScuTimer_EnableAutoReload(&TimerInstance);
+    XScuTimer_Start(&TimerInstance);
+
+    while (1) {
+        // Knoppen uitlezen
+        buttonStatus = ~XGpio_DiscreteRead(&GpioPushButtons, 1) & 0xF;
+    }
+
+    cleanup_platform();
+    return 0;
+}

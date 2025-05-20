@@ -1,33 +1,157 @@
-/******************************************************************************
-* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
-* SPDX-License-Identifier: MIT
-******************************************************************************/
-/*
- * helloworld.c: simple test application
- *
- * This application configures UART 16550 to baud rate 9600.
- * PS7 UART (Zynq) is not initialized by this application, since
- * bootrom/bsp configures it to baud rate 115200
- *
- * ------------------------------------------------
- * | UART TYPE   BAUD RATE                        |
- * ------------------------------------------------
- *   uartns550   9600
- *   uartlite    Configurable only in HW design
- *   ps7_uart    115200 (configured by bootrom/bsp)
- */
+#include "audio.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "xgpio.h"
+#include <math.h>
+#include "xparameters.h"
 
-#include <stdio.h>
-#include "platform.h"
-#include "xil_printf.h"
+#define TIMER_DEVICE_ID      XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID       XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR      XPAR_SCUTIMER_INTR
+#define SAMPLE_RATE          48000
+#define PI                   3.14159265358979323846
 
+#define MAX_DELAY            4800  // 0.1s delay at 48kHz
 
-int main()
-{
+// GPIO
+XGpio GpioButtons;
+XGpio GpioSwitches;
+
+// Audio variables
+volatile int32_t inputL, inputR, outputL, outputR;
+
+// Delay buffers for echo and reverb
+int32_t echoBufferL[MAX_DELAY] = {0};
+int32_t echoBufferR[MAX_DELAY] = {0};
+int32_t reverbBufferL[MAX_DELAY] = {0};
+int32_t reverbBufferR[MAX_DELAY] = {0};
+int delayIndex = 0;
+
+// Tone generation phases
+static float phase1 = 0.0f, phase2 = 0.0f, phase3 = 0.0f, phase4 = 0.0f;
+
+// Generate a sine wave tone
+void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+    const float amplitude = 1000000.0f;  // Adjust amplitude as needed
+    const float increment = 2.0f * PI * frequency / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        float sample = sinf(*phase);
+        int32_t value = (int32_t)(sample * amplitude);
+        outputBufferL[i] = outputBufferR[i] = value;
+
+        *phase += increment;
+        if (*phase >= 2.0f * PI) *phase -= 2.0f * PI;
+    }
+}
+
+// Echo effect
+void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+    // Simple echo: average current input with delayed sample
+    *outputL = (*inputL + echoBufferL[delayIndex]) / 2;
+    *outputR = (*inputR + echoBufferR[delayIndex]) / 2;
+
+    // Store current output in delay buffer
+    echoBufferL[delayIndex] = *outputL;
+    echoBufferR[delayIndex] = *outputR;
+}
+
+// Reverb effect
+void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+    // Simple reverb: weighted average of current input and delayed sample
+    *outputL = (*inputL * 3 + reverbBufferL[delayIndex]) / 4;
+    *outputR = (*inputR * 3 + reverbBufferR[delayIndex]) / 4;
+
+    // Store current output in delay buffer
+    reverbBufferL[delayIndex] = *outputL;
+    reverbBufferR[delayIndex] = *outputR;
+}
+
+// Timer ISR
+static void Timer_ISR(void *CallBackRef) {
+    XScuTimer *TimerInstancePtr = (XScuTimer *)CallBackRef;
+    XScuTimer_ClearInterruptStatus(TimerInstancePtr);
+
+    // Read GPIOs
+    u32 buttonStatus = XGpio_DiscreteRead(&GpioButtons, 1);
+    u32 switchStatus = XGpio_DiscreteRead(&GpioSwitches, 2);
+
+    // Read input
+    inputL = (int32_t)Xil_In32(I2S_DATA_RX_L_REG);
+    inputR = (int32_t)Xil_In32(I2S_DATA_RX_R_REG);
+    outputL = inputL;
+    outputR = inputR;
+
+    // Button-based tone generation
+    switch (buttonStatus) {
+        case 1:
+            GenerateTone(&outputL, &outputR, 1, 440.0f, &phase1);  // A4
+            break;
+        case 2:
+            GenerateTone(&outputL, &outputR, 1, 523.25f, &phase2);  // C5
+            break;
+        case 4:
+            GenerateTone(&outputL, &outputR, 1, 659.25f, &phase3);  // E5
+            break;
+        case 8:
+            GenerateTone(&outputL, &outputR, 1, 783.99f, &phase4);  // G5
+            break;
+        default:
+            break;
+    }
+
+    // Switch-based echo/reverb
+    if (switchStatus & 0x1) {
+        EchoEffect(&outputL, &outputR, &outputL, &outputR);
+    }
+    if (switchStatus & 0x2) {
+        ReverbEffect(&outputL, &outputR, &outputL, &outputR);
+    }
+
+    delayIndex = (delayIndex + 1) % MAX_DELAY;
+
+    // Write output
+    Xil_Out32(I2S_DATA_TX_L_REG, (u32)outputL);
+    Xil_Out32(I2S_DATA_TX_R_REG, (u32)outputR);
+}
+
+static int Timer_Intr_Setup(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId) {
+    XScuGic_Config *IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, IntcInstancePtr);
+    XScuGic_Connect(IntcInstancePtr, TimerIntrId, (Xil_ExceptionHandler)Timer_ISR, (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+    return XST_SUCCESS;
+}
+
+int main() {
     init_platform();
 
-    print("Hello World\n\r");
-    print("Successfully ran Hello World application");
+    IicConfig(XPAR_XIICPS_0_DEVICE_ID);
+    AudioPllConfig();
+    AudioConfigureJacks();
+    LineinLineoutConfig();
+
+    // GPIO setup
+    XGpio_Initialize(&GpioButtons, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_Initialize(&GpioSwitches, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioButtons, 1, 0xF);  // 4 buttons
+    XGpio_SetDataDirection(&GpioSwitches, 2, 0x3); // 2 switches
+
+    // Timer setup
+    XScuTimer Scu_Timer;
+    XScuTimer_Config *Scu_ConfigPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
+    XScuTimer_CfgInitialize(&Scu_Timer, Scu_ConfigPtr, Scu_ConfigPtr->BaseAddr);
+    Timer_Intr_Setup(&(XScuGic){0}, &Scu_Timer, TIMER_IRPT_INTR);
+    XScuTimer_LoadTimer(&Scu_Timer, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / SAMPLE_RATE);
+    XScuTimer_EnableAutoReload(&Scu_Timer);
+    XScuTimer_Start(&Scu_Timer);
+
+    while (1) {}
+
     cleanup_platform();
     return 0;
 }

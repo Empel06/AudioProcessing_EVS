@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include "xgpio.h"
+#include "xparameters.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "xil_printf.h"
+#include "audio.h"
+#include "xil_io.h"
+#include <math.h>
+
+#define PI 3.14159265f
+#define SAMPLE_RATE 48000
+
+XGpio GpioSwitches;
+XScuTimer Timer;
+XScuGic Gic;
+
+float phase = 0.0f;
+float frequency = 440.0f;
+int waveform = 0; // 0 = sinus, 1 = vierkant
+
+void Timer_ISR(void *CallBackRef) {
+    XScuTimer_ClearInterruptStatus(&Timer);
+
+    // Lees switches van poort 2 (zelfde als in DTMF code)
+    u32 switch_val = XGpio_DiscreteRead(&GpioSwitches, 2);
+    int sw0 = switch_val & 0x01;
+    int sw1 = (switch_val >> 1) & 0x01;
+
+    frequency = sw1 ? 440.0f : 220.0f;
+    waveform = sw0;
+
+    float sample;
+    if (waveform == 0) {
+        sample = sinf(2 * PI * phase);
+    } else {
+        sample = (sinf(2 * PI * phase) >= 0) ? 1.0f : -1.0f;
+    }
+
+    phase += frequency / SAMPLE_RATE;
+    if (phase >= 1.0f) phase -= 1.0f;
+
+    short int_sample = (short)(sample * 32767.0f);
+
+    Xil_Out32(I2S_DATA_TX_L_REG, (uint32_t)int_sample);
+    Xil_Out32(I2S_DATA_TX_R_REG, (uint32_t)int_sample);
+
+}
+
+int main() {
+    xil_printf("\r\n=== Synthesizer Test gestart ===\r\n");
+    xil_printf("SW0: Sinus (0) / Vierkant (1)\r\n");
+    xil_printf("SW1: 220 Hz (0) / 440 Hz (1)\r\n");
+    xil_printf("Audio-output via I2S gestart met 48 kHz sample rate.\r\n");
+
+    // GPIO initialiseren (zoals in DTMF)
+    XGpio_Initialize(&GpioSwitches, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioSwitches, 2, 0xF); // Poort 2 = switches als input
+
+    // Timer initialiseren
+    XScuTimer_Config *TimerConfig = XScuTimer_LookupConfig(XPAR_SCUTIMER_DEVICE_ID);
+    XScuTimer_CfgInitialize(&Timer, TimerConfig, TimerConfig->BaseAddr);
+    XScuTimer_LoadTimer(&Timer, XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / SAMPLE_RATE);
+    XScuTimer_SetPrescaler(&Timer, 0);
+    XScuTimer_EnableAutoReload(&Timer);
+    XScuTimer_EnableInterrupt(&Timer);
+
+    // GIC initialiseren (zoals in DTMF)
+    XScuGic_Config *GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_SINGLE_DEVICE_ID);
+    XScuGic_CfgInitialize(&Gic, GicConfig, GicConfig->CpuBaseAddress);
+
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+                                 (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+                                 &Gic);
+
+    XScuGic_Connect(&Gic, XPAR_SCUTIMER_INTR,
+                    (Xil_ExceptionHandler)Timer_ISR,
+                    (void *)&Timer);
+    XScuGic_Enable(&Gic, XPAR_SCUTIMER_INTR);
+    Xil_ExceptionEnable();
+
+    XScuTimer_Start(&Timer);
+
+    while (1) {
+        // synth loopt in interrupt
+    }
+
+    return 0;
+}

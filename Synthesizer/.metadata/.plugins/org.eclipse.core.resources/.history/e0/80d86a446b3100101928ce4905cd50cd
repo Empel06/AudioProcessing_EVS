@@ -1,0 +1,158 @@
+#include <stdio.h>
+#include "platform.h"
+#include "xil_printf.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "xgpio.h"
+#include "arm_math.h"
+#include <stdbool.h>
+
+#define TIMER_DEVICE_ID     XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID      XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR     XPAR_SCUTIMER_INTR
+#define SAMPLE_RATE         48000
+#define PI                  3.14159265358979f
+#define MAX_AMPLITUDE       0x7FFFFF
+
+#define GPIO_PUSHBUTTONS_DEVICE_ID XPAR_AXI_GPIO_0_DEVICE_ID
+#define GPIO_SWITCHES_DEVICE_ID     XPAR_AXI_GPIO_1_DEVICE_ID
+
+// Registreer hier jouw I2S data registers:
+#define I2S_DATA_TX_L_REG 0x43C00000 // Pas aan naar jouw juiste adres
+#define I2S_DATA_TX_R_REG 0x43C00004 // Pas aan naar jouw juiste adres
+
+XGpio GpioPushButtons;
+XGpio GpioSwitches;
+
+volatile float freq = 0.0f;
+volatile float phase = 0.0f;
+volatile bool vibrato_enabled = false;
+volatile bool square_wave = false;
+
+float note_freqs[4] = {261.63f, 293.66f, 329.63f, 349.23f}; // C4, D4, E4, F4
+
+XScuTimer TimerInstance;
+XScuGic IntcInstance;
+
+static void Timer_ISR(void *CallBackRef) {
+    XScuTimer *TimerInstancePtr = (XScuTimer *)CallBackRef;
+    XScuTimer_ClearInterruptStatus(TimerInstancePtr);
+
+    float current_freq = freq;
+    float current_phase = phase;
+
+    // Vibrato parameters
+    float vibrato_freq = 5.0f;    // 5 Hz vibrato
+    float vibrato_depth = 5.0f;   // +/-5 Hz frequency modulation
+
+    if (current_freq > 0.0f) {
+        if (vibrato_enabled) {
+            float vibrato = vibrato_depth * arm_sin_f32(2.0f * PI * vibrato_freq * current_phase / SAMPLE_RATE);
+            current_freq += vibrato;
+        }
+
+        float step = 2.0f * PI * current_freq / SAMPLE_RATE;
+        phase += step;
+        if (phase > 2.0f * PI) phase -= 2.0f * PI;
+
+        float sample = 0.0f;
+        if (square_wave) {
+            sample = (arm_sin_f32(phase) > 0.0f) ? 1.0f : -1.0f;
+        } else {
+            sample = arm_sin_f32(phase);
+        }
+
+        uint32_t scaled_sample = (uint32_t)(((sample + 1.0f) / 2.0f) * MAX_AMPLITUDE);
+
+        Xil_Out32(I2S_DATA_TX_L_REG, scaled_sample);
+        Xil_Out32(I2S_DATA_TX_R_REG, scaled_sample);
+    } else {
+        // Geen toon, output stil
+        Xil_Out32(I2S_DATA_TX_L_REG, MAX_AMPLITUDE / 2);
+        Xil_Out32(I2S_DATA_TX_R_REG, MAX_AMPLITUDE / 2);
+    }
+}
+
+static int Timer_Intr_Setup(XScuGic *IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId) {
+    int Status;
+    XScuGic_Config *IntcConfig;
+
+    IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+                                 (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+                                 IntcInstancePtr);
+    Status = XScuGic_Connect(IntcInstancePtr, TimerIntrId,
+                             (Xil_ExceptionHandler)Timer_ISR,
+                             (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+
+    return XST_SUCCESS;
+}
+
+int main() {
+    int Status;
+    init_platform();
+
+    // Initialiseer GPIO
+    XGpio_Initialize(&GpioPushButtons, GPIO_PUSHBUTTONS_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioPushButtons, 1, 0xF); // bits 0-3 als input (buttons)
+
+    XGpio_Initialize(&GpioSwitches, GPIO_SWITCHES_DEVICE_ID);
+    XGpio_SetDataDirection(&GpioSwitches, 1, 0x3); // bits 0-1 als input (switches)
+
+    xil_printf("Synthesizer gestart: gebruik 4 buttons voor tonen, 2 switches voor vibrato en golfvorm.\n\r");
+
+    // Timer setup
+    XScuTimer_Config *TimerConfigPtr;
+    TimerConfigPtr = XScuTimer_LookupConfig(TIMER_DEVICE_ID);
+    Status = XScuTimer_CfgInitialize(&TimerInstance, TimerConfigPtr, TimerConfigPtr->BaseAddr);
+    if (Status != XST_SUCCESS) {
+        xil_printf("Timer init error!\n\r");
+        return XST_FAILURE;
+    }
+
+    Status = Timer_Intr_Setup(&IntcInstance, &TimerInstance, TIMER_IRPT_INTR);
+    if (Status != XST_SUCCESS) {
+        xil_printf("Interrupt setup error!\n\r");
+        return XST_FAILURE;
+    }
+
+    // Timer interval: CPU freq / SAMPLE_RATE
+    XScuTimer_LoadTimer(&TimerInstance, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / SAMPLE_RATE);
+    XScuTimer_EnableAutoReload(&TimerInstance);
+    XScuTimer_Start(&TimerInstance);
+
+    while (1) {
+        // Buttons zijn active low, dus invert en mask
+        u32 btn_val = ~XGpio_DiscreteRead(&GpioPushButtons, 1) & 0x0F;
+
+        int pressed_note = -1;
+        for (int i = 0; i < 4; i++) {
+            if (btn_val & (1 << i)) {
+                pressed_note = i;
+                break;
+            }
+        }
+
+        if (pressed_note >= 0) {
+            freq = note_freqs[pressed_note];
+        } else {
+            freq = 0.0f;
+        }
+
+        // Switches zijn active low, invert en mask
+        u32 sw_val = ~XGpio_DiscreteRead(&GpioSwitches, 1) & 0x03;
+
+        vibrato_enabled = (sw_val & 0x01) != 0;
+        square_wave = (sw_val & 0x02) != 0;
+    }
+
+    cleanup_platform();
+    return 0;
+}

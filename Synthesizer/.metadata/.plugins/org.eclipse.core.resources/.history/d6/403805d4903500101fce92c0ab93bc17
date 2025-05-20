@@ -1,0 +1,249 @@
+#include "audio.h"
+#include "xscutimer.h"
+#include "xscugic.h"
+#include "xgpio.h"
+#include <math.h>
+#include "xparameters.h"
+
+// Timer and Signal Configurations
+#define TIMER_DEVICE_ID      XPAR_XSCUTIMER_0_DEVICE_ID
+#define INTC_DEVICE_ID       XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define TIMER_IRPT_INTR      XPAR_SCUTIMER_INTR
+#define TIMER_LOAD_VALUE     0xFFFF
+#define SINE_AMPLITUDE       1000
+#define SINE_FREQUENCY       440
+#define SAMPLE_RATE          48000
+#define PI 3.14159265358979323846
+
+// Define constants for audio effect parameters
+#define MAX_DELAY_TIME       10000
+#define MAX_REVERB_TIME      5000
+#define MAX_FLANGER_DELAY    1000
+#define MAX_CHORUS_DELAY     2000
+
+// GPIO
+XGpio gpio_0;
+
+float sinePhase = 0.0f;
+const float phaseIncrement = 2.0f * M_PI * SINE_FREQUENCY / SAMPLE_RATE;
+
+// Variabelen om fase bij te houden
+static float phase = 0.0f;
+static float frequency = 440.0f;  // A4 toon, 440 Hz
+
+// Global variables
+volatile int Timer_Intr_rcvd;
+u32 inputL, inputR, outputL, outputR;
+
+// Pac-Man Sound Effect Variables
+#define PACMAN_FREQUENCY 400.0f
+#define PACMAN_AMPLITUDE 1000000
+float pacmanPhase = 0.0f;
+const float pacmanPhaseIncrement = 2.0f * M_PI * PACMAN_FREQUENCY / SAMPLE_RATE;
+
+void PacManSoundEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize) {
+    // Variabelen voor uniek geluid
+    static float phase1 = 0.0f;
+    static float phase2 = 0.0f;
+    const float freq1 = 600.0f;  // hogere frequentie
+    const float freq2 = 900.0f;  // tweede toon
+    const float amplitude = 1000000;
+    const float increment1 = 2.0f * M_PI * freq1 / SAMPLE_RATE;
+    const float increment2 = 2.0f * M_PI * freq2 / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        // Mix twee sinussen voor een uniek Pacman-geluid
+        float value = sinf(phase1) + 0.5f * sinf(phase2);
+
+        int32_t sample = (int32_t)(value * amplitude);
+
+        outputBufferL[i] = (u32)sample;
+        outputBufferR[i] = (u32)sample;
+
+        phase1 += increment1;
+        phase2 += increment2;
+
+        if (phase1 >= 2.0f * M_PI) phase1 -= 2.0f * M_PI;
+        if (phase2 >= 2.0f * M_PI) phase2 -= 2.0f * M_PI;
+    }
+}
+
+
+void ChorusEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth, float delayTime) {
+    static u32 delayBufferL[MAX_CHORUS_DELAY] = {0};
+    static u32 delayBufferR[MAX_CHORUS_DELAY] = {0};
+    static int delayIndex = 0;
+    static float phase = 0.0f;
+    const float phaseIncrement = 2.0f * M_PI * rate / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        float lfoValue = sinf(phase);
+        u32 delayOffset = (u32)(lfoValue * depth * SAMPLE_RATE);
+
+        u32 delayedSampleL = delayBufferL[(delayIndex + delayOffset) % MAX_CHORUS_DELAY];
+        u32 delayedSampleR = delayBufferR[(delayIndex + delayOffset) % MAX_CHORUS_DELAY];
+
+        outputBufferL[i] = (u32)((u32)inputBufferL[i] + delayedSampleL);
+        outputBufferR[i] = (u32)((u32)inputBufferR[i] + delayedSampleR);
+
+        delayBufferL[delayIndex] = (u32)inputBufferL[i];
+        delayBufferR[delayIndex] = (u32)inputBufferR[i];
+
+        delayIndex = (delayIndex + 1) % MAX_CHORUS_DELAY;
+
+        phase += phaseIncrement;
+        if (phase >= 2.0f * M_PI) {
+            phase -= 2.0f * M_PI;
+        }
+    }
+}
+
+void SpacePhaserEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth) {
+    static float phaseL = 0.0f;
+    static float phaseR = M_PI; // Out of phase to create stereo effect
+    const float phaseIncrement = 2.0f * M_PI * rate / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        float lfoValueL = (1.0f - depth) + depth * sinf(phaseL);
+        float lfoValueR = (1.0f - depth) + depth * sinf(phaseR);
+
+        outputBufferL[i] = (u32)((u32)inputBufferL[i] * lfoValueL);
+        outputBufferR[i] = (u32)((u32)inputBufferR[i] * lfoValueR);
+
+        phaseL += phaseIncrement;
+        phaseR += phaseIncrement;
+        if (phaseL >= 2.0f * M_PI) {
+            phaseL -= 2.0f * M_PI;
+        }
+        if (phaseR >= 2.0f * M_PI) {
+            phaseR -= 2.0f * M_PI;
+        }
+    }
+}
+
+void GeneratePianoTone(u32* outputBufferL, u32* outputBufferR, int bufferSize) {
+    float phaseIncrement = 2.0f * PI * frequency / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        // Sinus waarde tussen -1.0 en 1.0
+        float sample = sinf(phase);
+
+        // Schaal naar een 32-bit unsigned waarde (bijvoorbeeld 0 tot max voor PCM)
+        u32 pcmSample = (u32)((sample + 1.0f) * (UINT32_MAX / 2));
+
+        outputBufferL[i] = pcmSample;
+        outputBufferR[i] = pcmSample;
+
+        phase += phaseIncrement;
+        if (phase >= 2.0f * PI) {
+            phase -= 2.0f * PI;
+        }
+    }
+}
+
+void TremoloEffect(u32* inputBufferL, u32* inputBufferR, u32* outputBufferL, u32* outputBufferR, int bufferSize, float rate, float depth) {
+    static float phase = 0.0f;
+    const float phaseIncrement = 2.0f * M_PI * rate / SAMPLE_RATE;
+
+    for (int i = 0; i < bufferSize; i++) {
+        float lfoValue = (1.0f - depth) + depth * sinf(phase);
+
+        outputBufferL[i] = (u32)((u32)inputBufferL[i] * lfoValue);
+        outputBufferR[i] = (u32)((u32)inputBufferR[i] * lfoValue);
+
+        phase += phaseIncrement;
+        if (phase >= 2.0f * M_PI) {
+            phase -= 2.0f * M_PI;
+        }
+    }
+}
+
+static void Timer_ISR(void *CallBackRef)
+{
+    XScuTimer *TimerInstancePtr = (XScuTimer *)CallBackRef;
+    XScuTimer_ClearInterruptStatus(TimerInstancePtr);
+
+    // Read GPIO inputs
+    u32 buttonStatus = XGpio_DiscreteRead(&gpio_0, 1);
+
+    // Read audio input data
+    u32 inputL = Xil_In32(I2S_DATA_RX_L_REG);
+    u32 inputR = Xil_In32(I2S_DATA_RX_R_REG);
+
+    // Apply audio effect based on button and switch status
+    switch (buttonStatus)
+    {
+        case 1:
+            SpacePhaserEffect(&inputL, &inputR, &outputL, &outputR, 1, 0.01f, 0.05f); // Adjust rate and depth as desired
+            xil_printf("SpacePhaser actief! \n\r");
+            break;
+        case 2:
+            GeneratePianoTone(&outputL, &outputR, 1);  // 1 sample per call of pas aan naar grotere buffer
+            xil_printf("Piano toon actief!\n\r");
+            break;
+        case 4:
+        	PacManSoundEffect(&inputL, &inputR, &outputL, &outputR, 1); // Pac-Man sound effect
+        	xil_printf("PACMAN actief! \n\r");
+            break;
+        case 8:
+            TremoloEffect(&inputL, &inputR, &outputL, &outputR, 1, 5.0f, 0.5f);
+            xil_printf("Tremolo actief! \n\r");
+            break;
+        default:
+            outputL = inputL;
+            outputR = inputR;
+            break;
+    }
+
+    // Write processed audio data to output
+    Xil_Out32(I2S_DATA_TX_L_REG, outputL);
+    Xil_Out32(I2S_DATA_TX_R_REG, outputR);
+}
+
+static int Timer_Intr_Setup(XScuGic * IntcInstancePtr, XScuTimer *TimerInstancePtr, u16 TimerIntrId)
+{
+    XScuGic_Config *IntcConfig;
+    IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+    XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig, IntcConfig->CpuBaseAddress);
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT, (Xil_ExceptionHandler)XScuGic_InterruptHandler, IntcInstancePtr);
+    XScuGic_Connect(IntcInstancePtr, TimerIntrId, (Xil_ExceptionHandler)Timer_ISR, (void *)TimerInstancePtr);
+    XScuGic_Enable(IntcInstancePtr, TimerIntrId);
+    XScuTimer_EnableInterrupt(TimerInstancePtr);
+    Xil_ExceptionEnable();
+    return XST_SUCCESS;
+}
+
+int main()
+{
+    init_platform();
+    //Configure the IIC data structure
+    IicConfig(XPAR_XIICPS_0_DEVICE_ID);
+    XGpio_Initialize(&gpio_0, XPAR_AXI_GPIO_1_DEVICE_ID);
+
+    //Configure the Audio Codec's PLL
+    AudioPllConfig();
+    AudioConfigureJacks();
+    LineinLineoutConfig();
+
+    XScuTimer Scu_Timer;
+    XScuTimer_Config *Scu_ConfigPtr;
+    XScuGic IntcInstance;
+
+    Scu_ConfigPtr = XScuTimer_LookupConfig(XPAR_PS7_SCUTIMER_0_DEVICE_ID);
+    XScuTimer_CfgInitialize(&Scu_Timer, Scu_ConfigPtr, Scu_ConfigPtr->BaseAddr);
+    Timer_Intr_Setup(&IntcInstance, &Scu_Timer, XPS_SCU_TMR_INT_ID);
+    XScuTimer_LoadTimer(&Scu_Timer, (XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2) / 48000);
+    XScuTimer_EnableAutoReload(&Scu_Timer);
+    XScuTimer_Start(&Scu_Timer);
+
+    // Set GPIO pins as inputs
+    XGpio_SetDataDirection(&gpio_0, 1, 0);
+    XGpio_SetDataDirection(&gpio_0, 2, 1);
+
+    for(;;) {
+    }
+
+    cleanup_platform();
+    return 0;
+}

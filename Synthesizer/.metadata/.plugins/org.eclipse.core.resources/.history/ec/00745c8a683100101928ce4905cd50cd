@@ -1,0 +1,91 @@
+#include "xgpio.h"
+#include "xparameters.h"
+#include "xscutimer.h"
+#include "xil_printf.h"
+#include <math.h>
+
+#define PI 3.14159265
+#define SAMPLE_RATE 48000
+
+XGpio Gpio;
+XScuTimer Timer;
+
+float phase = 0.0f;
+float frequency = 440.0f;
+int waveform = 0; // 0 = sinus, 1 = vierkant
+
+void Timer_ISR(void *CallBackRef) {
+    // Timer interrupt afhandelen
+    XScuTimer_ClearInterruptStatus(&Timer);
+
+    // Lees switches (bits 0 en 1)
+    u32 switch_val = XGpio_DiscreteRead(&Gpio, 1);
+    int sw0 = switch_val & 0x01;
+    int sw1 = (switch_val >> 1) & 0x01;
+
+    // Stel frequentie en golfvorm in
+    frequency = sw1 ? 440.0f : 220.0f;
+    waveform = sw0;
+
+    // Bereken sample
+    float sample;
+    if (waveform == 0) {
+        sample = sinf(2 * PI * phase);
+    } else {
+        sample = (sinf(2 * PI * phase) >= 0) ? 1.0f : -1.0f;
+    }
+
+    phase += frequency / SAMPLE_RATE;
+    if (phase >= 1.0f) phase -= 1.0f;
+
+    // Zet sample om naar 16-bit waarde
+    short int_sample = (short)(sample * 32767.0f);
+
+    // Schrijf sample naar I2S DAC (dummyfunctie of vervangbaar)
+    *((volatile u32*)XPAR_AXI_I2S_AUDIO_BASEADDR) = ((u32)(int_sample & 0xFFFF) << 16) | (u16)(int_sample & 0xFFFF);
+}
+
+int main() {
+    xil_printf("\r\n=== Synthesizer Test gestart ===\r\n");
+    xil_printf("SW0 (M20): Sinus (0) / Vierkant (1)\r\n");
+    xil_printf("SW1 (M19): 220 Hz (0) / 440 Hz (1)\r\n");
+    xil_printf("Audio-output via I2S gestart met 48 kHz sample rate.\r\n");
+
+    // GPIO initialiseren (voor switches)
+    XGpio_Initialize(&Gpio, XPAR_AXI_GPIO_0_DEVICE_ID);
+    XGpio_SetDataDirection(&Gpio, 1, 0xFFFF); // Poort 1 = input
+
+    // Timer initialiseren
+    XScuTimer_Config *TimerConfig = XScuTimer_LookupConfig(XPAR_SCUTIMER_DEVICE_ID);
+    XScuTimer_CfgInitialize(&Timer, TimerConfig, TimerConfig->BaseAddr);
+    XScuTimer_LoadTimer(&Timer, XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / SAMPLE_RATE);
+    XScuTimer_SetPrescaler(&Timer, 0);
+    XScuTimer_EnableAutoReload(&Timer);
+    XScuTimer_EnableInterrupt(&Timer);
+
+    // GIC configureren
+    XScuGic_Config *GicConfig = XScuGic_LookupConfig(XPAR_SCUGIC_SINGLE_DEVICE_ID);
+    XScuGic Gic;
+    XScuGic_CfgInitialize(&Gic, GicConfig, GicConfig->CpuBaseAddress);
+
+    Xil_ExceptionInit();
+    Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+                                 (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+                                 &Gic);
+
+    XScuGic_Connect(&Gic, XPAR_SCUTIMER_INTR,
+                    (Xil_ExceptionHandler)Timer_ISR,
+                    (void *)&Timer);
+    XScuGic_Enable(&Gic, XPAR_SCUTIMER_INTR);
+    Xil_ExceptionEnable();
+
+    // Start timer
+    XScuTimer_Start(&Timer);
+
+    // Oneindige lus
+    while (1) {
+        // Synth draait volledig in interrupt
+    }
+
+    return 0;
+}
