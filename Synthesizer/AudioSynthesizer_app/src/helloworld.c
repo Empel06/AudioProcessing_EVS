@@ -203,7 +203,7 @@ int main() {
     AudioConfigureJacks();
     LineinLineoutConfig();
 
-    xil_printf("Audio Synthesiser DEMO\r\n");
+    xil_printf("Audio Synthesizer DEMO\r\n");
 
     // GPIO setup
     XGpio_Initialize(&GpioButtons, XPAR_AXI_GPIO_1_DEVICE_ID);
