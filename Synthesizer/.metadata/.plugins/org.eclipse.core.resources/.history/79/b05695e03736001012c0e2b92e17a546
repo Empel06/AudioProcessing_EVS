@@ -1,0 +1,135 @@
+#ifndef PERIPHERAL_H
+#define PERIPHERAL_H
+
+#include "xgpio.h"
+#include "xuartps.h"
+#include "xparameters.h"
+#include <limits.h>
+
+// Integer increment macros met overflow-behandeling
+#define I32increment(v, a) \
+    do { \
+        if ((a) > 0 && (v) > INT_MAX - (a)) \
+            (v) = INT_MAX; \
+        else if ((a) < 0 && (v) < INT_MIN - (a)) \
+            (v) = INT_MIN; \
+        else \
+            (v) += (a); \
+    } while (0)
+
+#define I32decrement(v, a) I32increment((v), -(a))
+
+// ------------------ ENUMS ------------------
+
+// Rotary encoder states
+typedef enum {
+    RE_NONE = 0,
+    RE_LEFT,
+    RE_RIGHT,
+    RE_BUTTON,
+    RE_IDLE
+} Rotary_State;
+
+// Switch states (voorbeeld, uitbreiden indien nodig)
+typedef enum {
+    SWITCH_OFF_Changed,
+    SWITCH_ON_Changed,
+    SWITCH_ON_Stable,
+    SWITCH_OFF_Stable
+} Switch_State;
+
+// Button states
+typedef enum {
+    BUTTON_OFF_Changed,
+    BUTTON_ON_Changed,
+    BUTTON_ON_Stable,
+    BUTTON_OFF_Stable
+} Button_State;
+
+// ------------------ STRUCTS ------------------
+
+typedef struct {
+    XUartPs Uart_Ps;
+} UART;
+
+typedef struct {
+    XGpio gpio;
+    u32 gpio_channel;
+    u8 prev_state;
+    u32 counter;
+    u8 debounce;
+    u32 PS;
+    u32 CS;
+} Rotary_enc;
+
+typedef struct {
+    XGpio SW;
+    u8 PS[2];
+    u8 CS[2];
+} Switch_arr;
+
+typedef struct {
+    XGpio BTNS;
+    u8 PS[4];
+    u8 CS[4];
+} Button_Array;
+
+#include "peripheral.h"
+
+// Rotary encoder instance (singleton)
+static Rotary_enc rotary_instance;
+
+// Dit zijn GPIO inputs voor rotary encoder A en B pins (stel channel 1)
+#define ROTARY_GPIO_CHANNEL 1
+
+// GPIO pin masks voor rotary encoder (stel A = bit0, B = bit1)
+#define ROTARY_A_MASK 0x01
+#define ROTARY_B_MASK 0x02
+
+Rotary_enc* Rotary_enc_instance(void) {
+    static int initialized = 0;
+    if (!initialized) {
+        // Initializeer GPIO voor rotary encoder
+        XGpio_Initialize(&rotary_instance.gpio, XPAR_AXI_GPIO_0_DEVICE_ID);
+        rotary_instance.gpio_channel = ROTARY_GPIO_CHANNEL;
+        XGpio_SetDataDirection(&rotary_instance.gpio, rotary_instance.gpio_channel, 0x3); // bit0 en bit1 input
+        rotary_instance.prev_state = 0;
+        rotary_instance.counter = 0;
+        rotary_instance.debounce = 0;
+        rotary_instance.PS = 0;
+        rotary_instance.CS = 0;
+        initialized = 1;
+    }
+    return &rotary_instance;
+}
+
+void Rotary_enc_SetCounter(Rotary_enc* re, u32 v) {
+    if (!re) return;
+    re->counter = v;
+}
+
+u32 Rotary_enc_GetCounter(Rotary_enc* re) {
+    if (!re) return 0;
+    return re->counter;
+}
+
+// ------------------ FUNCTION PROTOTYPES ------------------
+
+// UART
+UART* UART_instance(void);
+
+// Rotary Encoder
+Rotary_enc* Rotary_enc_instance(void);
+Rotary_State Rotary_enc_GetState(Rotary_enc* re);
+u32 Rotary_enc_GetCounter(Rotary_enc* re);
+void Rotary_enc_SetCounter(Rotary_enc* re, u32 v);
+
+// Switches
+Switch_arr* Switch_arr_instance(void);
+u8 SWx_State(Switch_arr* sa, u8 sw);
+
+// Buttons
+Button_Array* Button_Array_instance(void);
+u8 BTNx_State(Button_Array* ba, u8 idx);
+
+#endif // PERIPHERAL_H

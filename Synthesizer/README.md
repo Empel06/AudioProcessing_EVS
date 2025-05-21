@@ -15,6 +15,7 @@ It utilizes **audio I/O**, **GPIO buttons/switches**, **AXI GPIO-controlled LEDs
 * 4 GPIO pushbuttons
 * 2 GPIO switches
 * 4 LEDs (AXI GPIO)
+* Rotary Encoder (3-bit output via AXI GPIO)
 * Zynq-7000 SoC
 
 ### Software:
@@ -22,7 +23,7 @@ It utilizes **audio I/O**, **GPIO buttons/switches**, **AXI GPIO-controlled LEDs
 * **Vitis Classic 2024.1**
 * Vitis BSP with proper AXI GPIO and I2S (audio codec) configuration
 * Audio libraries (`audio.h` and I2C configuration files)
-
+* GPIO en interrupt drivers (xgpio.h, xscutimer.h, xscugic.h)
 ---
 
 ## Features
@@ -33,6 +34,7 @@ It utilizes **audio I/O**, **GPIO buttons/switches**, **AXI GPIO-controlled LEDs
 * LED visualization for active tones/effects
 * UART terminal status reporting
 * Timer ISR for sample-accurate audio processing
+* Rotary encoder to change the volume (0–100%)
 
 ---
 
@@ -54,6 +56,10 @@ It utilizes **audio I/O**, **GPIO buttons/switches**, **AXI GPIO-controlled LEDs
 | SW0    | Echo   |
 | SW1    | Reverb |
 
+### Rotary Encoder
+* Turn right: increase volume
+* Turn left: decrease volume
+
 ### LEDs (Visual Feedback):
 
 | LED     | Function                         |
@@ -73,6 +79,10 @@ It utilizes **audio I/O**, **GPIO buttons/switches**, **AXI GPIO-controlled LEDs
                   |
           +------------------+
           |  GPIO Switches   |----> FX Control
+          +------------------+
+                  |
+          +------------------+
+          | Rotary Encoder   |----> Volume Control
           +------------------+
                   |
     +--------------------------+
@@ -193,6 +203,26 @@ void PrintStatusIfChanged(u32 buttonStatus, u32 switchStatus) {
 }
 ```
 
+### 7. Rotary Encoder Singleton
+```c
+Rotary_enc* Rotary_enc_instance() {
+    static int initialized = 0;
+    if (!initialized) {
+        XGpio_Initialize(&rotary_singleton.rotary, XPAR_AXI_GPIO_0_DEVICE_ID);
+        XGpio_SetDataDirection(&rotary_singleton.rotary, 1, 0xFFFFFFFF); // input
+        rotary_singleton.PS = Rotary_enc_GetValue(&rotary_singleton);
+        initialized = 1;
+    }
+    return &rotary_singleton;
+}
+
+float volumeFactor = (float)volume / 100.0f;
+outputL = (int32_t)(outputL * volumeFactor);
+outputR = (int32_t)(outputR * volumeFactor);
+
+
+```
+
 ---
 
 ## How to Build and Run
@@ -211,12 +241,14 @@ void PrintStatusIfChanged(u32 buttonStatus, u32 switchStatus) {
 * Create a new application targeting the exported hardware platform
 * Import all required source files (`main.c`, `audio.h`, platform config)
 * Build and run the application via UART
+* `peripheral.h` (for rotary encoder)
 
 ### 3. Interact
 
 * Press buttons to generate tones
 * Flip switches to enable/disable echo and reverb
-* Observe LED feedback and UART printout
+* Observe LED feedback and UART printout´
+* Turn the rotary encoder to change the volume
 
 ---
 
@@ -229,6 +261,7 @@ void PrintStatusIfChanged(u32 buttonStatus, u32 switchStatus) {
   * Echo: simple feedback buffer (0.1s max)
   * Reverb: mixing input with previous samples
 * **Phase Handling**: Each tone has its own phase accumulator
+* **Volume**: 0-100% via rotary (start on 50%)
 
 ---
 
@@ -247,5 +280,6 @@ void PrintStatusIfChanged(u32 buttonStatus, u32 switchStatus) {
 | `audio.h`                             | Audio config header (I2C, I2S) |
 | `xparameters.h`                       | Auto-generated hardware params |
 | `xgpio.h`, `xscutimer.h`, `xscugic.h` | Xilinx drivers                 |
+| `peripheral.h`                        | Rotary encoder functions       |
 
 ---

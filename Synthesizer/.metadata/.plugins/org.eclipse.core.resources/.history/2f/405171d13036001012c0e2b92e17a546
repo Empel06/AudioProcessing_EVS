@@ -1,0 +1,77 @@
+#ifndef PERIPHERAL_H
+#define PERIPHERAL_H
+
+#include "xgpio.h"
+#include "xuartps.h"
+#include "xparameters.h"
+#include <limits.h>
+
+#define I32increment(v, a) \
+    do { \
+        if ((a) > 0 && (v) > INT_MAX - (a)) \
+            (v) = INT_MAX; \
+        else if ((a) < 0 && (v) < INT_MIN - (a)) \
+            (v) = INT_MIN; \
+        else \
+            (v) += (a); \
+    } while (0)
+
+#define I32decrement(v, a) I32increment((v), -(a))
+
+typedef struct {
+    XUartPs Uart_Ps;
+} UART;
+
+typedef enum {
+    RE_LEFT,
+    RE_RIGHT,
+    RE_BUTTON,
+    RE_IDLE
+} Rotary_State;
+
+typedef struct {
+    XGpio rotary;
+    u32 counter;
+    u8 debounce;
+    u32 PS;
+    u32 CS;
+} Rotary_enc;
+
+typedef enum {
+    SWITCH_OFF_Changed,
+    SWITCH_ON_Changed,
+    SWITCH_ON_Stable,
+    SWITCH_OFF_Stable
+} Switch_State;
+
+typedef struct {
+    XGpio SW;
+    u8 PS[2];
+    u8 CS[2];
+} Switch_arr;
+
+typedef enum {
+    BUTTON_OFF_Changed,
+    BUTTON_ON_Changed,
+    BUTTON_ON_Stable,
+    BUTTON_OFF_Stable
+} Button_State;
+
+typedef struct {
+    XGpio BTNS;
+    u8 PS[4];
+    u8 CS[4];
+} Button_Array;
+
+// Init/instance functies
+UART* UART_instance(void);
+Rotary_enc* Rotary_enc_instance(void);
+Switch_arr* Switch_arr_instance(void);
+Button_Array* Button_Array_instance(void);
+
+// Rotary functies
+Rotary_State Rotary_enc_GetState(Rotary_enc* re);
+u32 Rotary_enc_GetCounter(Rotary_enc* re);
+void Rotary_enc_SetCounter(Rotary_enc* re, u32 v);
+
+#endif // PERIPHERAL_H

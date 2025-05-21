@@ -1,6 +1,6 @@
-Nothing to build in platform 'AudioProcessing2'
+Nothing to build in platform 'UpdatedAudioProcV2'
 
-18:45:56 **** Incremental Build of configuration Debug for project AudioSynthesizer_app ****
+13:45:27 **** Incremental Build of configuration Debug for project Synthisizer_app ****
 make -j12 all 
 make --no-print-directory pre-build
 a9-linaro-pre-build-step
@@ -8,113 +8,126 @@ a9-linaro-pre-build-step
 make --no-print-directory main-build
 'Building file: ../src/helloworld.c'
 'Invoking: ARM v7 gcc compiler'
-arm-none-eabi-gcc -DDISABLEFLOAT16 -DARM_MATH_NEON -Wall -O0 -g3 -IC:/devWorks/DTMF/AudioProcessing_EVS/Synthesizer/AudioProcessing2/export/AudioProcessing2/sw/AudioProcessing2/standalone_ps7_cortexa9_0/bspinclude/include -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\Source" -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\PrivateInclude" -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\ComputeLibrary" -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\Include" -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\Include\dsp" -I"C:\devWorks\DTMF\AudioProcessing_EVS\Synthesizer\AudioSynthesizer_app\src\ComputeLibrary\Include" -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=neon-vfpv4 -mfloat-abi=hard -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+arm-none-eabi-gcc -DDISABLEFLOAT16 -DARM_MATH_NEON -Wall -O0 -g3 -IC:/devWorks/Synthesizer/UpdatedAudioProcV2/export/UpdatedAudioProcV2/sw/UpdatedAudioProcV2/standalone_ps7_cortexa9_0/bspinclude/include -I"C:\devWorks\Synthesizer\Synthisizer_app\src\ComputeLibrary" -I"C:\devWorks\Synthesizer\Synthisizer_app\src\Include" -I"C:\devWorks\Synthesizer\Synthisizer_app\src\PrivateInclude" -I"C:\devWorks\Synthesizer\Synthisizer_app\src\Source" -I"C:\devWorks\Synthesizer\Synthisizer_app\src\Include\dsp" -I"C:\devWorks\Synthesizer\Synthisizer_app\src\ComputeLibrary\Include" -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=neon-vfpv4 -mfloat-abi=hard -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+In file included from ../src/peripheral.h:5,
+                 from ../src/helloworld.c:8:
+C:/devWorks/Synthesizer/UpdatedAudioProcV2/export/UpdatedAudioProcV2/sw/UpdatedAudioProcV2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps.h:450: warning: "XUartPs_IsTransmitEmpty" redefined
+  450 | #define XUartPs_IsTransmitEmpty(InstancePtr)                            \
+      | 
+In file included from C:/devWorks/Synthesizer/UpdatedAudioProcV2/export/UpdatedAudioProcV2/sw/UpdatedAudioProcV2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps.h:170:
+C:/devWorks/Synthesizer/UpdatedAudioProcV2/export/UpdatedAudioProcV2/sw/UpdatedAudioProcV2/standalone_ps7_cortexa9_0/bspinclude/include/xuartps_hw.h:424: note: this is the location of the previous definition
+  424 | #define XUartPs_IsTransmitEmpty(BaseAddress)                     \
+      | 
 ../src/helloworld.c: In function 'Timer_ISR':
-../src/helloworld.c:156:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  156 |             GenerateTone(&outputL, &outputR, 1, 440.0f, &phase1);  // A4
+../src/helloworld.c:230:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  230 |             GenerateTone(&outputL, &outputR, 1, 440.0f, &phase1);  // A4
       |                          ^~~~~~~~
-../src/helloworld.c:102:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                   ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:156:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  156 |             GenerateTone(&outputL, &outputR, 1, 440.0f, &phase1);  // A4
+../src/helloworld.c:230:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  230 |             GenerateTone(&outputL, &outputR, 1, 440.0f, &phase1);  // A4
       |                                    ^~~~~~~~
-../src/helloworld.c:102:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                                           ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:159:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  159 |             GenerateTone(&outputL, &outputR, 1, 523.25f, &phase2);  // C5
+../src/helloworld.c:233:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  233 |             GenerateTone(&outputL, &outputR, 1, 523.25f, &phase2);  // C5
       |                          ^~~~~~~~
-../src/helloworld.c:102:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                   ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:159:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  159 |             GenerateTone(&outputL, &outputR, 1, 523.25f, &phase2);  // C5
+../src/helloworld.c:233:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  233 |             GenerateTone(&outputL, &outputR, 1, 523.25f, &phase2);  // C5
       |                                    ^~~~~~~~
-../src/helloworld.c:102:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                                           ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:162:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  162 |             GenerateTone(&outputL, &outputR, 1, 659.25f, &phase3);  // E5
+../src/helloworld.c:236:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  236 |             GenerateTone(&outputL, &outputR, 1, 659.25f, &phase3);  // E5
       |                          ^~~~~~~~
-../src/helloworld.c:102:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                   ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:162:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  162 |             GenerateTone(&outputL, &outputR, 1, 659.25f, &phase3);  // E5
+../src/helloworld.c:236:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  236 |             GenerateTone(&outputL, &outputR, 1, 659.25f, &phase3);  // E5
       |                                    ^~~~~~~~
-../src/helloworld.c:102:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                                           ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:165:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  165 |             GenerateTone(&outputL, &outputR, 1, 783.99f, &phase4);  // G5
+../src/helloworld.c:239:26: warning: passing argument 1 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  239 |             GenerateTone(&outputL, &outputR, 1, 783.99f, &phase4);  // G5
       |                          ^~~~~~~~
-../src/helloworld.c:102:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                   ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:165:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  165 |             GenerateTone(&outputL, &outputR, 1, 783.99f, &phase4);  // G5
+../src/helloworld.c:239:36: warning: passing argument 2 of 'GenerateTone' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  239 |             GenerateTone(&outputL, &outputR, 1, 783.99f, &phase4);  // G5
       |                                    ^~~~~~~~
-../src/helloworld.c:102:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  102 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
+../src/helloworld.c:176:52: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  176 | void GenerateTone(int32_t* outputBufferL, int32_t* outputBufferR, int bufferSize, float frequency, float* phase) {
       |                                           ~~~~~~~~~^~~~~~~~~~~~~
-../src/helloworld.c:173:20: warning: passing argument 1 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  173 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:247:20: warning: passing argument 1 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  247 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
       |                    ^~~~~~~~
-../src/helloworld.c:117:26: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  117 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:191:26: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  191 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                 ~~~~~~~~~^~~~~~
-../src/helloworld.c:173:30: warning: passing argument 2 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  173 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:247:30: warning: passing argument 2 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  247 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
       |                              ^~~~~~~~
-../src/helloworld.c:117:43: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  117 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:191:43: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  191 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                  ~~~~~~~~~^~~~~~
-../src/helloworld.c:173:40: warning: passing argument 3 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  173 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:247:40: warning: passing argument 3 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  247 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
       |                                        ^~~~~~~~
-../src/helloworld.c:117:60: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  117 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:191:60: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  191 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                                   ~~~~~~~~~^~~~~~~
-../src/helloworld.c:173:50: warning: passing argument 4 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  173 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:247:50: warning: passing argument 4 of 'EchoEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  247 |         EchoEffect(&outputL, &outputR, &outputL, &outputR);
       |                                                  ^~~~~~~~
-../src/helloworld.c:117:78: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  117 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:191:78: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  191 | void EchoEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                                                     ~~~~~~~~~^~~~~~~
-../src/helloworld.c:176:22: warning: passing argument 1 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  176 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:250:22: warning: passing argument 1 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  250 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
       |                      ^~~~~~~~
-../src/helloworld.c:125:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  125 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:199:28: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  199 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                   ~~~~~~~~~^~~~~~
-../src/helloworld.c:176:32: warning: passing argument 2 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  176 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:250:32: warning: passing argument 2 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  250 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
       |                                ^~~~~~~~
-../src/helloworld.c:125:45: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  125 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:199:45: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  199 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                    ~~~~~~~~~^~~~~~
-../src/helloworld.c:176:42: warning: passing argument 3 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  176 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:250:42: warning: passing argument 3 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  250 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
       |                                          ^~~~~~~~
-../src/helloworld.c:125:62: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  125 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:199:62: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  199 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                                     ~~~~~~~~~^~~~~~~
-../src/helloworld.c:176:52: warning: passing argument 4 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-  176 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
+../src/helloworld.c:250:52: warning: passing argument 4 of 'ReverbEffect' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  250 |         ReverbEffect(&outputL, &outputR, &outputL, &outputR);
       |                                                    ^~~~~~~~
-../src/helloworld.c:125:80: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
-  125 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
+../src/helloworld.c:199:80: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'volatile int32_t *' {aka 'volatile long int *'}
+  199 | void ReverbEffect(int32_t* inputL, int32_t* inputR, int32_t* outputL, int32_t* outputR) {
       |                                                                       ~~~~~~~~~^~~~~~~
+../src/helloworld.c: At top level:
+../src/helloworld.c:19:19: warning: 'rotary_instance' defined but not used [-Wunused-variable]
+   19 | static Rotary_enc rotary_instance;
+      |                   ^~~~~~~~~~~~~~~
 'Finished building: ../src/helloworld.c'
 ' '
-'Building target: AudioSynthesizer_app.elf'
+'Building target: Synthisizer_app.elf'
 'Invoking: ARM v7 gcc linker'
-'Finished building target: AudioSynthesizer_app.elf'
+'Finished building target: Synthisizer_app.elf'
 ' '
 'Invoking: ARM v7 Print Size'
-arm-none-eabi-size AudioSynthesizer_app.elf  |tee "AudioSynthesizer_app.elf.size"
+arm-none-eabi-size Synthisizer_app.elf  |tee "Synthisizer_app.elf.size"
    text	   data	    bss	    dec	    hex	filename
-1569060	   1992	  99536	1670588	 197dbc	AudioSynthesizer_app.elf
-'Finished building: AudioSynthesizer_app.elf.size'
+1570300	   2008	  99632	1671940	 198304	Synthisizer_app.elf
+'Finished building: Synthisizer_app.elf.size'
 ' '

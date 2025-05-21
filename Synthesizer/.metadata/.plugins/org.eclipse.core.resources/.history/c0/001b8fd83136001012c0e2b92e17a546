@@ -1,0 +1,197 @@
+#include "peripheral.h"
+#include "xil_printf.h"
+#include "sleep.h"
+
+static UART uart_instance;
+static Rotary_enc rotary_instance;
+static Switch_arr switch_instance;
+static Button_Array button_instance;
+
+// ------------------ UART ------------------
+
+void UART_init(UART* uart) {
+    XUartPs_Config *Config = XUartPs_LookupConfig(XPAR_XUARTPS_0_DEVICE_ID);
+    XUartPs_CfgInitialize(&uart->Uart_Ps, Config, Config->BaseAddress);
+    XUartPs_SetBaudRate(&uart->Uart_Ps, 115200);
+}
+
+UART* UART_instance(void) {
+    static int initialized = 0;
+    if (!initialized) {
+        UART_init(&uart_instance);
+        initialized = 1;
+    }
+    return &uart_instance;
+}
+
+// ------------------ Rotary Encoder ------------------
+
+static u32 Rotary_enc_GetValue(Rotary_enc* re) {
+    return XGpio_DiscreteRead(&re->rotary, 1);
+}
+
+void Rotary_enc_init(Rotary_enc* re) {
+    XGpio_Initialize(&re->rotary, XPAR_AXI_GPIO_0_DEVICE_ID);
+    XGpio_SetDataDirection(&re->rotary, 1, 0xFFFFFFFF);
+    re->PS = Rotary_enc_GetValue(re);
+    re->counter = 0;
+    re->debounce = 1;
+}
+
+Rotary_enc* Rotary_enc_instance(void) {
+    static int initialized = 0;
+    if (!initialized) {
+        Rotary_enc_init(&rotary_instance);
+        initialized = 1;
+    }
+    return &rotary_instance;
+}
+
+Rotary_State Rotary_enc_GetState(Rotary_enc* re) {
+    u32 CS = Rotary_enc_GetValue(re);
+    Rotary_State state = RE_IDLE;
+
+    if (CS == 0b111) {
+        switch (re->PS) {
+            case 0b110:
+                if (re->debounce) {
+                    re->debounce = 0;
+                } else {
+                    re->debounce = 1;
+                    xil_printf("button\r\n");
+                    state = RE_BUTTON;
+                }
+                break;
+
+            case 0b011:
+                I32increment(re->counter, 1);
+                xil_printf("rechts, %d\r\n", re->counter);
+                state = RE_RIGHT;
+                break;
+
+            case 0b101:
+                I32decrement(re->counter, 1);
+                xil_printf("links, %d\r\n", re->counter);
+                state = RE_LEFT;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    re->PS = CS;
+    return state;
+}
+
+u32 Rotary_enc_GetCounter(Rotary_enc* re) {
+    return re->counter;
+}
+
+void Rotary_enc_SetCounter(Rotary_enc* re, u32 v) {
+    re->counter = v;
+}
+
+// ------------------ Switches ------------------
+
+void Switch_arr_init(Switch_arr* sa) {
+    XGpio_Initialize(&sa->SW, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_SetDataDirection(&sa->SW, 2, 0xFFFFF);
+    u8 tmp = XGpio_DiscreteRead(&sa->SW, 2);
+    sa->PS[0] = tmp;
+    sa->PS[1] = tmp;
+}
+
+Switch_arr* Switch_arr_instance(void) {
+    static int initialized = 0;
+    if (!initialized) {
+        Switch_arr_init(&switch_instance);
+        initialized = 1;
+    }
+    return &switch_instance;
+}
+
+u8 SWx_State(Switch_arr* sa, u8 sw) {
+    if (sw < 1 || sw > 3) return 0;
+    u8 idx = sw - 1;
+
+    u8 tmp = XGpio_DiscreteRead(&sa->SW, 2);
+    sa->CS[idx] = (tmp >> idx) & 0x1;
+
+    u8 ret = (sa->PS[idx] != sa->CS[idx]) ?
+             (sa->CS[idx] ? SWITCH_ON_Changed : SWITCH_OFF_Changed) :
+             (sa->CS[idx] ? SWITCH_ON_Stable : SWITCH_OFF_Stable);
+
+    sa->PS[idx] = sa->CS[idx];
+    return ret;
+}
+
+// ------------------ Buttons ------------------
+
+void Button_Array_init(Button_Array* ba) {
+    XGpio_Initialize(&ba->BTNS, XPAR_AXI_GPIO_1_DEVICE_ID);
+    XGpio_SetDataDirection(&ba->BTNS, 1, 0xFFFFF);
+    u8 tmp = XGpio_DiscreteRead(&ba->BTNS, 1);
+    for (int i = 0; i < 4; ++i) {
+        ba->PS[i] = tmp;
+    }
+}
+
+Button_Array* Button_Array_instance(void) {
+    static int initialized = 0;
+    if (!initialized) {
+        Button_Array_init(&button_instance);
+        initialized = 1;
+    }
+    return &button_instance;
+}
+
+u8 BTNx_State(Button_Array* ba, u8 idx) {
+    if (idx < 1 || idx > 4) return 0;
+    idx = idx - 1;
+
+    u8 tmp = XGpio_DiscreteRead(&ba->BTNS, 1);
+    ba->CS[idx] = (tmp >> idx) & 0x1;
+
+    u8 ret = (ba->PS[idx] != ba->CS[idx]) ?
+             (ba->CS[idx] ? BUTTON_ON_Changed : BUTTON_OFF_Changed) :
+             (ba->CS[idx] ? BUTTON_ON_Stable : BUTTON_OFF_Stable);
+
+    ba->PS[idx] = ba->CS[idx];
+    return ret;
+}
+
+int main() {
+    // Initialisaties
+    UART* uart = UART_instance();
+    Rotary_enc* encoder = Rotary_enc_instance();
+
+    xil_printf("Rotary encoder test gestart...\r\n");
+
+    while (1) {
+        Rotary_State state = Rotary_enc_GetState(encoder);
+
+        switch (state) {
+            case RE_LEFT:
+                xil_printf("LINKS gedraaid - Teller: %d\r\n", Rotary_enc_GetCounter(encoder));
+                break;
+
+            case RE_RIGHT:
+                xil_printf("RECHTS gedraaid - Teller: %d\r\n", Rotary_enc_GetCounter(encoder));
+                break;
+
+            case RE_BUTTON:
+                xil_printf("Knop ingedrukt\r\n");
+                break;
+
+            case RE_IDLE:
+            default:
+                // Geen actie
+                break;
+        }
+
+        usleep(1000); // 10 ms vertraging
+    }
+
+    return 0;
+}

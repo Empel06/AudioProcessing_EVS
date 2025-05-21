@@ -1,0 +1,98 @@
+#ifndef PERIPHERAL_H
+#define PERIPHERAL_H
+
+#include "xuartps.h"
+#include "xgpio.h"
+#include "stdio.h"
+#include "audio.h"
+
+#include "xgpio.h"
+#include "xparameters.h"
+#include "sleep.h"
+#include "xscugic.h"
+#include "xscutimer.h"
+
+#include "arm_math.h"
+#include "arm_const_structs.h"
+
+#include <limits.h>
+
+#define I32increment(v, a) \
+    do { \
+        if ((a) > 0 && (v) > INT_MAX - (a)) \
+            (v) = INT_MAX; \
+        else if ((a) < 0 && (v) < INT_MIN - (a)) \
+            (v) = INT_MIN; \
+        else \
+            (v) += (a); \
+    } while (0)
+
+#define I32decrement(v, a) I32increment((v), -(a))
+
+// ---------- BUTTON ARRAY ----------
+typedef enum {
+    BUTTON_OFF_Changed,
+    BUTTON_ON_Changed,
+    BUTTON_ON_Stable,
+    BUTTON_OFF_Stable
+} Button_State;
+
+typedef struct {
+    u8 PS[4];
+    u8 CS[4];
+    XGpio BTNS;
+} Button_Array;
+
+void Button_Array_init(Button_Array* ba);
+u8 BTNx_State(Button_Array* ba, u8 idx);
+Button_Array* Button_Array_instance(void);
+
+// ---------- SWITCH ARRAY ----------
+typedef enum {
+    SWITCH_OFF_Changed,
+    SWITCH_ON_Changed,
+    SWITCH_ON_Stable,
+    SWITCH_OFF_Stable
+} Switch_State;
+
+typedef struct {
+    u8 PS[2];
+    u8 CS[2];
+    XGpio SW;
+} Switch_arr;
+
+void Switch_arr_init(Switch_arr* sa);
+u8 SWx_State(Switch_arr* sa, u8 sw);
+Switch_arr* Switch_arr_instance(void);
+
+// ---------- UART ----------
+typedef struct {
+    XUartPs Uart_Ps;
+} UART;
+
+void UART_init(UART* uart);
+UART* UART_instance(void);
+
+// ---------- ROTARY ENCODER ----------
+typedef enum {
+    RE_LEFT,
+    RE_RIGHT,
+    RE_BUTTON,
+    RE_IDLE
+} Rotary_State;
+
+typedef struct {
+    XGpio rotary;
+    int counter;
+    u8 debounce;
+    u32 PS;
+    u32 CS;
+} Rotary_enc;
+
+void Rotary_enc_init(Rotary_enc* re);
+Rotary_State Rotary_enc_GetState(Rotary_enc* re);
+u32 Rotary_enc_GetCounter(Rotary_enc* re);
+void Rotary_enc_SetCounter(Rotary_enc* re, u32 v);
+Rotary_enc* Rotary_enc_instance(void);
+
+#endif
