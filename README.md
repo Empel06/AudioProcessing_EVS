@@ -39,3 +39,4 @@ In this project, you will build an audio synthesizer using the Pynq-Z2 board. Th
 - Zip file with Vitis project export  
 - [YouTube demo link](https://youtu.be/iipLF8zrmjs) (Project demo video)
 - [YouTube demo link](https://youtu.be/ZMR1q619fII) (Project demo video + rotary encoder)
+- [BD](./Synthesizer/Synthisizer-BD.pdf)
